@@ -41,7 +41,7 @@ Copiar `.env.example` a `.env.local` y completar los valores públicos según [l
 
 - Catálogo responsivo con categorías, búsqueda sin distinción de acentos, precio máximo, promociones y disponibilidad.
 - Ficha de producto con precio por kg/pieza e imagen; ilustración alternativa si no se proporciona foto.
-- Enlace a WhatsApp cuando se configure un número real. No se inventa un teléfono.
+- Contacto telefónico y enlace a WhatsApp con el número del negocio proporcionado por su responsable.
 - Login y autorización mediante lista de administradores en Supabase.
 - Creación y edición de productos, precios, descripción, promoción, stock mínimo y foto mediante URL HTTPS.
 - Entradas y salidas por merma, historial de los últimos 100 movimientos y resumen de inventario.

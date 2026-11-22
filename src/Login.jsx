@@ -21,7 +21,7 @@ export default function Login() {
     finally { setOcupado(false) }
   }
   return <main className="container login-page"><section className="login-card"><span className="login-icon"><LockKeyhole /></span><p className="eyebrow">ACCESO RESTRINGIDO</p><h1>Administración</h1><p className="muted">Accede para gestionar productos e inventario.</p>
-    {!supabase ? <div className="notice">El catálogo está en demostración. El acceso estará disponible al conectar el proyecto con Supabase y crear al administrador.</div> : <form onSubmit={entrar}><label>Correo electrónico<input type="email" name="email" autoComplete="username" required /></label><label>Contraseña<input type="password" name="password" autoComplete="current-password" required /></label>{error && <p role="alert" className="notice error">{error}</p>}<Button type="submit" disabled={ocupado}>{ocupado ? 'Ingresando…' : 'Iniciar sesión'}</Button></form>}
+    {!supabase ? <div className="notice">El acceso administrativo no está disponible en este momento. Inténtalo más tarde.</div> : <form onSubmit={entrar}><label>Correo electrónico<input type="email" name="email" autoComplete="username" required /></label><label>Contraseña<input type="password" name="password" autoComplete="current-password" required /></label>{error && <p role="alert" className="notice error">{error}</p>}<Button type="submit" disabled={ocupado}>{ocupado ? 'Ingresando…' : 'Iniciar sesión'}</Button></form>}
     <Link className="back-link" to="/">Volver al catálogo</Link>
   </section></main>
 }

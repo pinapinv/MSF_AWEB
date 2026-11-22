@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router'
 import { Fish, ShieldCheck } from 'lucide-react'
 import { traerProductos } from './api/productos'
 import { configurado } from './lib/supabase'
+import { telefono, telefonoVisible } from './lib/contacto'
 
 export default function Layout() {
   const [productos, setProductos] = useState([])
@@ -24,12 +25,11 @@ export default function Layout() {
     return () => controller.abort()
   }, [])
   return <>
-    <div className="demo-strip">Proyecto académico · Datos de prueba · Nombre e identidad provisionales</div>
     <header className="site-header">
-      <NavLink to="/" className="brand"><span className="brand-icon"><Fish /></span><span>Catálogo del mar<small>EL SAUZAL · PROYECTO MSF</small></span></NavLink>
+      <NavLink to="/" className="brand"><span className="brand-icon"><Fish /></span><span>Catálogo del mar<small>EL SAUZAL</small></span></NavLink>
       <nav aria-label="Principal"><NavLink to="/" end>Catálogo</NavLink><NavLink to="/admin"><ShieldCheck size={17} /> Administración</NavLink></nav>
     </header>
     <Outlet context={{ productos, cargando, error, recargar: cargar, configurado }} />
-    <footer><span>MSF · Aplicaciones Web</span><span>{configurado ? 'Entorno académico con Supabase' : 'Demostración · Sin conexión a base de datos'}</span></footer>
+    <footer><span>Catálogo del mar · El Sauzal</span><div className="footer-contact"><a href={`tel:+${telefono}`}>{telefonoVisible}</a><a href={`https://wa.me/${telefono}`} target="_blank" rel="noreferrer">Contactar por WhatsApp</a></div></footer>
   </>
 }

@@ -5,6 +5,7 @@ import { Search, SlidersHorizontal, X, MessageCircle, Waves } from 'lucide-react
 import { Button } from './components/ui/button'
 import ProductoImagen from './components/ui/ProductoImagen'
 import { enlaceContacto, filtrarProductos, moneda } from './lib/productos'
+import { telefono } from './lib/contacto'
 
 const filtrosIniciales = { busqueda: '', categoria: '', precioMax: '', disponibles: false, promociones: false }
 export default function App() {
@@ -14,14 +15,14 @@ export default function App() {
   const categorias = [...new Set(productos.map((p) => p.categoria))].sort()
   const resultados = useMemo(() => filtrarProductos(productos, filtros), [productos, filtros])
   const cambiar = (clave, valor) => setFiltros((prev) => ({ ...prev, [clave]: valor }))
-  const contacto = seleccionado && enlaceContacto(seleccionado, import.meta.env.VITE_WHATSAPP_NUMBER)
+  const contacto = seleccionado && enlaceContacto(seleccionado, telefono)
   return <main className="container">
     <section className="hero">
       <div><p className="eyebrow">PESCADOS Y MARISCOS</p><h1>Del mar<br /><em>lo más natural</em></h1><p>Explora nuestros productos y consulta su disponibilidad.<br className="desktop-break" /> Elige lo que buscas y contáctanos por WhatsApp.</p><a href="#catalogo" className="button button-light">Explorar catálogo</a></div>
-      <div className="hero-art" aria-hidden="true"><Waves className="wave wave-one" /><Waves className="wave wave-two" /><span>EL SAUZAL<br /><b>Productos<br />del mar</b><small>CATÁLOGO DE DEMOSTRACIÓN</small></span></div>
+      <div className="hero-art" aria-hidden="true"><Waves className="wave wave-one" /><Waves className="wave wave-two" /><span>EL SAUZAL<br /><b>Productos<br />del mar</b><small>PESCADOS Y MARISCOS</small></span></div>
     </section>
     <section id="catalogo" className="catalog">
-      <div className="section-title"><div><p className="eyebrow">NUESTRO CATÁLOGO</p><h2>Encuentra tu favorito</h2></div><span className="muted">Precios de ejemplo en MXN</span></div>
+      <div className="section-title"><div><p className="eyebrow">NUESTRO CATÁLOGO</p><h2>Encuentra tu favorito</h2></div><span className="muted">Precios en MXN</span></div>
       <div className="catalog-layout">
         <aside className="filters"><h3><SlidersHorizontal size={18} /> Filtrar productos</h3><label>Buscar<div className="search-field"><Search size={18} /><input value={filtros.busqueda} placeholder="Nombre del producto" onChange={(e) => cambiar('busqueda', e.target.value)} type="search" /></div></label>
           <label>Categoría<select value={filtros.categoria} onChange={(e) => cambiar('categoria', e.target.value)}><option value="">Todas las categorías</option>{categorias.map((c) => <option key={c}>{c}</option>)}</select></label>
