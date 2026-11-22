@@ -17,7 +17,7 @@ export default function App() {
   const contacto = seleccionado && enlaceContacto(seleccionado, import.meta.env.VITE_WHATSAPP_NUMBER)
   return <main className="container">
     <section className="hero">
-      <div><p className="eyebrow">PESCADOS Y MARISCOS</p><h1>Del mar,<br /><em>a tu mesa.</em></h1><p>Explora nuestros productos y consulta su disponibilidad.<br className="desktop-break" /> Elige lo que buscas y contáctanos por WhatsApp.</p><a href="#catalogo" className="button button-light">Explorar catálogo</a></div>
+      <div><p className="eyebrow">PESCADOS Y MARISCOS</p><h1>Del mar<br /><em>lo más natural</em></h1><p>Explora nuestros productos y consulta su disponibilidad.<br className="desktop-break" /> Elige lo que buscas y contáctanos por WhatsApp.</p><a href="#catalogo" className="button button-light">Explorar catálogo</a></div>
       <div className="hero-art" aria-hidden="true"><Waves className="wave wave-one" /><Waves className="wave wave-two" /><span>EL SAUZAL<br /><b>Productos<br />del mar</b><small>CATÁLOGO DE DEMOSTRACIÓN</small></span></div>
     </section>
     <section id="catalogo" className="catalog">
