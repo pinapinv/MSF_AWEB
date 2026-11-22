@@ -1,4 +1,4 @@
-# MSF · Aplicaciones Web
+# Mariscos de San Felipe
 
 Aplicación académica de catálogo e inventario para una pescadería en El Sauzal. Primer avance funcional. **El nombre visual, productos, precios y existencias de demostración son ficticios.** No representan datos confirmados de un negocio.
 
@@ -53,7 +53,7 @@ Copiar `.env.example` a `.env.local` y completar los valores públicos según [l
 - Crear/conectar el proyecto real de Supabase, aplicar SQL, crear el administrador y probar sesión/persistencia en ese servicio.
 - Crear el proyecto de Vercel y verificar la URL publicada. **Aún no existe un despliegue verificado.**
 - Registro de ventas, reportes por periodo, ingresos y producto más vendido.
-- Alertas automáticas externas: WhatsApp de pruebas o Telegram si se acepta el ajuste de alcance. Ningún envío está implementado en este avance.
+- Alertas WhatsApp: detección y cola instaladas, función de envío preparada y desplegada. Falta configurar Meta, secretos y webhook para activar envíos y confirmar recepción. Ver [docs/ALERTAS.md](docs/ALERTAS.md).
 - Carga de archivos de fotos a Storage (por ahora se editan por URL).
 - Actualización de stock entre visitantes sin recargar: por ahora los datos se consultan al abrir la app y se actualizan después de operaciones del panel. La sincronización en tiempo real queda pendiente.
 
