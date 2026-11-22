@@ -19,7 +19,7 @@ export default function App() {
   return <main className="container">
     <section className="hero">
       <div><p className="eyebrow">PESCADOS Y MARISCOS</p><h1>Del mar<br /><em>lo más natural</em></h1><p>Explora nuestros productos y consulta su disponibilidad.<br className="desktop-break" /> Elige lo que buscas y contáctanos por WhatsApp.</p><a href="#catalogo" className="button button-light">Explorar catálogo</a></div>
-      <div className="hero-art" aria-hidden="true"><Waves className="wave wave-one" /><Waves className="wave wave-two" /><span>EL SAUZAL<br /><b>Productos<br />del mar</b><small>PESCADOS Y MARISCOS</small></span></div>
+      <div className="hero-art" aria-hidden="true"><Waves className="wave wave-one" /><Waves className="wave wave-two" /><span>EL SAUZAL, B.C.<br /><b>Productos<br />del mar</b><small>PESCADOS Y MARISCOS</small></span></div>
     </section>
     <section id="catalogo" className="catalog">
       <div className="section-title"><div><p className="eyebrow">NUESTRO CATÁLOGO</p><h2>Encuentra tu favorito</h2></div><span className="muted">Precios en MXN</span></div>
