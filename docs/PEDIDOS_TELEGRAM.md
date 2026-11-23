@@ -2,13 +2,15 @@
 
 ## Flujo para el cliente
 
-1. Abrir un producto disponible del catálogo y pulsar **Solicitar por Telegram**.
-2. Abrir el bot y pulsar **Iniciar** si Telegram lo solicita. El enlace lleva el identificador del producto; no incluye credenciales.
+1. Abrir un producto disponible del catálogo y pulsar **Solicitar en Telegram Web**, o **Abrir en la app de Telegram** si se tiene la aplicación instalada.
+2. En Web, iniciar sesión en ese navegador si es necesario. Abrir el bot y pulsar **Iniciar** si Telegram lo solicita. El enlace lleva el identificador del producto; no incluye credenciales.
 3. El bot muestra producto, precio por tonelada y existencias, y pregunta la cantidad.
 4. Escribir solo la cantidad en toneladas, con punto o coma decimal y hasta seis decimales. `0.001` toneladas equivale a 1 kg. La selección vence a los 30 minutos; `/cancelar` permite elegir otro producto.
 5. Recibir el número y monto de la solicitud y esperar la decisión del negocio. Solo se admite una solicitud pendiente por cliente durante 24 horas.
 
 El ostión permanece pendiente de peso y precio y no permite solicitudes de venta. WhatsApp conserva el contacto para consultas y cotizaciones especiales.
+
+Si la página intermedia `t.me` muestra **START BOT** y no abre nada, ese botón usa el protocolo `tg://` para lanzar una aplicación instalada. Usar **Solicitar en Telegram Web** evita ese paso y conserva el producto. Como alternativa, **Copiar solicitud para pegar en el bot** copia el comando del producto: pegarlo y enviarlo en el chat, no en la búsqueda de Telegram.
 
 ## Decisión de la persona administradora
 

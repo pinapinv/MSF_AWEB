@@ -85,3 +85,5 @@ Aclaré que la empresa es una comercializadora de mayoreo y pedí un diseño má
 ## Solicitudes de venta con aprobación desde Telegram
 
 Pedí que el cliente envíe su producto de interés al bot, que este pregunte cantidad y que yo pueda aceptar o denegar desde mi chat de Telegram. Delegué la incorporación de enlaces por producto, conversaciones privadas, solicitudes pendientes y botones administrativos. Elegí que el stock baje al aceptar. La asistencia incluyó pruebas de autorización, decisiones repetidas, rechazo y stock insuficiente, además de una aceptación en la base real que se revirtió al terminar para no dejar una venta de prueba. El bot no comprueba pagos bancarios.
+
+Después reporté que el botón Start no hacía nada. La asistencia identificó que estaba en la página intermedia de Telegram en Opera y que no llegaban eventos al bot. Se agregó acceso directo a Telegram Web conservando el producto, un enlace separado para la aplicación instalada y una opción de copiar la solicitud. Se comprobó que el enlace web abre el chat y que el bot pregunta la cantidad.

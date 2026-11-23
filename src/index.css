@@ -28,3 +28,5 @@ fieldset{padding:0;border:0;min-width:0}.sale-total{display:flex;flex-wrap:wrap;
 @media(max-width:380px){.product-grid{grid-template-columns:1fr}.product-image{height:220px}.hero h1{font-size:3rem}.brand{font-size:.82rem}.site-header nav{gap:9px}.site-header nav a{font-size:.7rem}}
 
 .detail-contact{margin-top:12px}.telegram-orders{margin-top:32px}.order-note{max-width:65ch}
+
+.telegram-options{display:flex;flex-direction:column;gap:10px}.telegram-options p{font-size:.85rem;line-height:1.6;margin:2px 0;overflow-wrap:anywhere}.telegram-options .button{width:100%}
