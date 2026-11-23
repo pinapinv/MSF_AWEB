@@ -4,9 +4,20 @@ import { cleanup,render,screen,waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter,Outlet,Route,Routes } from 'react-router'
 import Carrito from '../src/Carrito'
+import CantidadProducto from '../src/components/ui/CantidadProducto'
 import { supabase } from '../src/lib/supabase'
 vi.mock('../src/lib/supabase',()=>({supabase:{rpc:vi.fn()}}))
 afterEach(()=>{cleanup();vi.clearAllMocks()})
+it('agrega la cantidad seleccionada y bloquea exceder las existencias restantes',async()=>{
+  const agregar=vi.fn(),user=userEvent.setup()
+  render(<CantidadProducto producto={{id:'p1',nombre:'Filete',stock:5}} enCarrito={1} agregar={agregar}/>)
+  const campo=screen.getByLabelText('Toneladas de Filete')
+  await user.clear(campo);await user.type(campo,'1.5')
+  await user.click(screen.getByRole('button',{name:'Agregar al carrito'}))
+  expect(agregar).toHaveBeenCalledWith(expect.objectContaining({id:'p1'}),1.5)
+  await user.clear(campo);await user.type(campo,'4.5')
+  expect(screen.getByRole('button',{name:'Agregar al carrito'}).disabled).toBe(true)
+})
 function Contexto(){
   const [carrito,setCarrito]=useState([{producto_id:'p1',cantidad:0.5},{producto_id:'p2',cantidad:0.5}])
   return <Outlet context={{carrito,setCarrito,cargando:false,productos:[{id:'p1',nombre:'Filete',precio:180000,stock:5},{id:'p2',nombre:'Camarón',precio:260000,stock:3}]}} />

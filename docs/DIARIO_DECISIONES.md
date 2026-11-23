@@ -95,3 +95,7 @@ Decidí que stock, movimientos y ventas nuevas usen múltiplos de 0.5 toneladas,
 ## 16. Elegir cantidades en un carrito web
 
 Decidí trasladar la selección de productos y toneladas a un carrito de la aplicación y usar Telegram para enviar el pedido completo y decidir su aceptación. La página prepara el resumen con precios del servidor; el administrador decide por todo el carrito. Si cualquier producto ya no cumple precio o disponibilidad, no se descuenta ninguno. El pago sigue acordándose con el negocio. Los pedidos individuales previos se conservan como historial.
+
+## Selección de toneladas desde el catálogo
+
+Decidí elegir la cantidad antes de agregar al carrito, tanto en la tarjeta como en el detalle. El botón agrega esa cantidad, respeta los pasos de 0.5 t y no permite superar el stock contando lo que ya está en el carrito. Pedí retirar el párrafo introductorio del carrito.

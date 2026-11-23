@@ -95,3 +95,7 @@ Pedí eliminar las cantidades pequeñas como 0.001 toneladas y usar solo enteros
 ## Carrito dentro de la aplicación
 
 Pedí cambiar la dinámica para elegir productos y toneladas dentro de un carrito y pasar el pedido completo a Telegram para decidir si se concreta. Delegué la implementación del carrito, su persistencia local, el resumen calculado en el servidor y la aprobación administrativa. Las pruebas verifican que todos los productos se descuenten juntos y que el rechazo o falta de stock no deje una venta parcial. Telegram deja de preguntar cantidades en este flujo.
+
+## Selección de toneladas desde el catálogo
+
+Pedí mejorar los botones y elegir toneladas desde las tarjetas del catálogo igual que en el carrito. La asistencia agregó un selector en tarjetas y detalle, validó el stock restante y retiró el párrafo introductorio del carrito que señalé.

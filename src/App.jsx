@@ -4,6 +4,7 @@ import { Dialog } from '@base-ui/react/dialog'
 import { Search, SlidersHorizontal, X, MessageCircle, Anchor, MapPin, Ship } from 'lucide-react'
 import { Button } from './components/ui/button'
 import ProductoImagen from './components/ui/ProductoImagen'
+import CantidadProducto from './components/ui/CantidadProducto'
 import { enlaceContacto, filtrarProductos, moneda } from './lib/productos'
 import { telefono } from './lib/contacto'
 
@@ -18,7 +19,11 @@ export default function App() {
   const contacto = seleccionado && enlaceContacto(seleccionado, telefono)
   const abrirDetalle = (producto) => setSeleccionado(producto)
   const enCarrito = (id) => carrito.find(l=>l.producto_id===id)?.cantidad || 0
-  const agregar = (p) => setCarrito(prev => prev.some(l=>l.producto_id===p.id) ? prev.map(l=>l.producto_id===p.id ? {...l,cantidad:l.cantidad+0.5}:l) : [...prev,{producto_id:p.id,cantidad:0.5}])
+  const agregar = (p,cantidad) => setCarrito(prev => {
+    const actual=prev.find(l=>l.producto_id===p.id)?.cantidad || 0
+    if(p.cotizacion_pendiente || cantidad<=0 || !Number.isInteger(cantidad*2) || actual+cantidad>p.stock) return prev
+    return actual ? prev.map(l=>l.producto_id===p.id ? {...l,cantidad:l.cantidad+cantidad}:l) : [...prev,{producto_id:p.id,cantidad}]
+  })
   return <main className="container">
     <section className="hero">
       <div className="hero-copy"><p className="eyebrow"><Anchor size={17} /> COMERCIALIZADORA · VENTA AL MAYOREO</p><h1>Del mar<br /><em>lo más natural</em></h1><p>Consulta disponibilidad y elige la opción que más te guste. Arma tu carrito y envíalo por Telegram para concretar la venta.</p><a href="#catalogo" className="button button-light">Explorar catálogo</a><span className="hero-location"><MapPin size={15} /> El Sauzal, Baja California</span></div>
@@ -40,13 +45,13 @@ export default function App() {
         <div className="results"><p className="result-count" aria-live="polite">{cargando ? 'Cargando catálogo…' : `${resultados.length} ${resultados.length === 1 ? 'producto' : 'productos'}`}</p>
           {error ? <div role="alert" className="notice error">{error}<Button onClick={() => recargar()}>Reintentar</Button></div> : cargando ? <div className="empty">Consultando productos…</div> : resultados.length ? <div className="product-grid">{resultados.map((p) => <article className="product-card" key={p.id}>
             <button className="image-button" onClick={() => abrirDetalle(p)} aria-label={`Ver detalles de ${p.nombre}`}><ProductoImagen producto={p} /></button>
-            <div className="card-body"><div className="card-meta"><span>{p.categoria}</span>{p.promocion && <span className="promo">Promoción</span>}</div><h3>{p.nombre}</h3><span className={`stock ${p.cotizacion_pendiente ? 'quote-pending' : p.stock > 0 ? '' : 'sold-out'}`}>{p.cotizacion_pendiente ? 'Peso por confirmar' : p.stock > 0 ? 'Disponible' : 'Agotado'}</span><div className="card-bottom"><p><strong>{p.cotizacion_pendiente ? 'Por cotizar' : moneda(p.precio)}</strong><span> por tonelada</span></p><Button variant="outline" onClick={() => abrirDetalle(p)}>Ver detalle</Button><Button disabled={p.cotizacion_pendiente || enCarrito(p.id)+0.5>p.stock} onClick={()=>agregar(p)}>Agregar 0.5 t{enCarrito(p.id)>0 ? ` · ${enCarrito(p.id)} t en carrito` : ''}</Button></div></div>
+            <div className="card-body"><div className="card-meta"><span>{p.categoria}</span>{p.promocion && <span className="promo">Promoción</span>}</div><h3>{p.nombre}</h3><span className={`stock ${p.cotizacion_pendiente ? 'quote-pending' : p.stock > 0 ? '' : 'sold-out'}`}>{p.cotizacion_pendiente ? 'Peso por confirmar' : p.stock > 0 ? 'Disponible' : 'Agotado'}</span><div className="card-bottom"><p><strong>{p.cotizacion_pendiente ? 'Por cotizar' : moneda(p.precio)}</strong><span> por tonelada</span></p><Button variant="outline" onClick={() => abrirDetalle(p)}>Ver detalle</Button><CantidadProducto producto={p} enCarrito={enCarrito(p.id)} agregar={agregar} /></div></div>
           </article>)}</div> : <div className="empty"><Search size={32} /><h3>No encontramos productos</h3><p>Prueba otra búsqueda o limpia los filtros.</p><Button onClick={() => setFiltros(filtrosIniciales)}>Ver todos</Button></div>}
         </div>
       </div>
     </section>
     <Dialog.Root open={Boolean(seleccionado)} onOpenChange={(open) => { if (!open) setSeleccionado(null) }}><Dialog.Portal><Dialog.Backdrop className="dialog-backdrop" /><Dialog.Popup className="dialog-popup">
-      {seleccionado && <><Dialog.Close className="close-button" aria-label="Cerrar detalle"><X /></Dialog.Close><ProductoImagen producto={seleccionado} /><div className="detail-body"><p className="eyebrow">{seleccionado.categoria} · MAYOREO</p><Dialog.Title>{seleccionado.nombre}</Dialog.Title><Dialog.Description>{seleccionado.descripcion || 'Consulta al negocio para conocer más detalles.'}</Dialog.Description><p className="detail-price">{seleccionado.cotizacion_pendiente ? 'Por cotizar' : moneda(seleccionado.precio)} <small>por tonelada</small></p><p>{seleccionado.cotizacion_pendiente ? 'Peso disponible y precio pendientes de confirmar. Solicita una cotización.' : seleccionado.stock > 0 ? 'Disponible en catálogo' : 'Actualmente agotado'}</p>{!seleccionado.cotizacion_pendiente && seleccionado.stock > 0 && <div className="telegram-options"><Button disabled={enCarrito(seleccionado.id)+0.5>seleccionado.stock} onClick={()=>agregar(seleccionado)}>Agregar 0.5 t al carrito</Button><p>En el carrito: {enCarrito(seleccionado.id)} t. Elige las cantidades y procesa todos tus productos juntos.</p><Link className="button button-outline" to="/carrito">Ver carrito y elegir toneladas</Link></div>}{contacto ? <a className="button button-outline detail-contact" href={contacto} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Consultar por WhatsApp</a> : <p className="notice">El contacto se habilitará cuando el negocio proporcione su número.</p>}</div></>}
+      {seleccionado && <><Dialog.Close className="close-button" aria-label="Cerrar detalle"><X /></Dialog.Close><ProductoImagen producto={seleccionado} /><div className="detail-body"><p className="eyebrow">{seleccionado.categoria} · MAYOREO</p><Dialog.Title>{seleccionado.nombre}</Dialog.Title><Dialog.Description>{seleccionado.descripcion || 'Consulta al negocio para conocer más detalles.'}</Dialog.Description><p className="detail-price">{seleccionado.cotizacion_pendiente ? 'Por cotizar' : moneda(seleccionado.precio)} <small>por tonelada</small></p><p>{seleccionado.cotizacion_pendiente ? 'Peso disponible y precio pendientes de confirmar. Solicita una cotización.' : seleccionado.stock > 0 ? 'Disponible en catálogo' : 'Actualmente agotado'}</p>{!seleccionado.cotizacion_pendiente && seleccionado.stock > 0 && <div className="telegram-options"><CantidadProducto producto={seleccionado} enCarrito={enCarrito(seleccionado.id)} agregar={agregar} /><Link className="button button-outline" to="/carrito">Ver carrito y elegir toneladas</Link></div>}{contacto ? <a className="button button-outline detail-contact" href={contacto} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Consultar por WhatsApp</a> : <p className="notice">El contacto se habilitará cuando el negocio proporcione su número.</p>}</div></>}
     </Dialog.Popup></Dialog.Portal></Dialog.Root>
   </main>
 }
