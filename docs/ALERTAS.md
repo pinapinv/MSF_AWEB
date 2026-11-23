@@ -10,16 +10,18 @@ Canal elegido por la responsable: Telegram, debido al bloqueo de registro de Met
 - Vinculación del destinatario mediante un código visible únicamente para administradores en **Administración > Alertas**.
 - Historial administrativo de avisos y aviso destacado cuando hay productos bajo su mínimo.
 
-## Pendiente de la cuenta de Telegram
+## Estado verificado
 
-No se ha creado el bot ni se ha enviado un mensaje real: Telegram Web requiere iniciar sesión desde el teléfono. El worker indicará `falta_token` mientras no exista el secreto.
+El bot [@MariscosSanFelipeAlertasBot](https://t.me/MariscosSanFelipeAlertasBot) fue creado y vinculado al chat autorizado. El token se guardó como secreto de Supabase. Se verificó la recepción de la alerta de Almeja: 2 kg disponibles y mínimo de 3 kg, correspondientes al inventario de prueba. Cron está activo cada dos minutos y la última comprobación terminó sin error. La corrección de permisos para procesar alertas quedó en `afb82fd`.
+
+## Pasos de configuración para otra instalación
 
 1. Iniciar sesión en Telegram y abrir https://t.me/BotFather.
 2. Enviar `/newbot`, elegir el nombre y un usuario disponible que termine en `bot`.
 3. Guardar el token directamente en **Supabase > Edge Functions > Secrets**, con el nombre `TELEGRAM_BOT_TOKEN`. No ponerlo en el chat, Git o variables `VITE_*`.
 4. En la página, entrar a **Administración > Alertas** y copiar el comando completo `/start CODIGO`.
 5. Abrir el bot recién creado y enviar ese comando. El siguiente ciclo del worker vincula ese chat privado. No se usa como destinatario al último desconocido que haya escrito al bot.
-6. Confirmar el estado **Telegram vinculado** y la recepción del primer aviso. La almeja tiene 2 kg de prueba y un mínimo de 3 kg, por lo que existe una alerta pendiente lista para esta comprobación.
+6. Confirmar el estado **Telegram vinculado** y la recepción de un aviso de prueba. En la instalación actual, el aviso inicial de Almeja ya fue enviado; no debe restablecerse como pendiente para repetirlo.
 
 El token controla el bot: debe guardarse solo como secreto en Supabase. El código de vinculación no es el token; solo compártelo con la persona que debe recibir avisos. El bot debe ser exclusivo para esta aplicación, ya que el worker usa `getUpdates`.
 

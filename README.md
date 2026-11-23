@@ -1,10 +1,17 @@
 # Mariscos de San Felipe
 
-Aplicación académica de catálogo e inventario para una pescadería en El Sauzal. Primer avance funcional. **El nombre visual, productos, precios y existencias de demostración son ficticios.** No representan datos confirmados de un negocio.
+Aplicación de catálogo, inventario y registro de ventas para Mariscos de San Felipe, en El Sauzal, B.C. El nombre, ubicación, eslogan y contacto fueron proporcionados por la responsable. **Las existencias iniciales y los precios de ejemplo no representan datos comerciales verificados.** Las fotografías son de referencia y tienen sus créditos incluidos.
+
+## Entrega
+
+- [Repositorio de GitHub](https://github.com/pinapinv/MSF_AWEB)
+- [Proyecto desplegado](https://msf-aweb.vercel.app)
+- [Bitácora de uso de IA](docs/BITACORA_IA.md)
+- [Diario de decisiones](docs/DIARIO_DECISIONES.md)
 
 ## Tecnologías y organización
 
-Se conserva la forma de trabajo de `demo-react`: React con JavaScript/JSX, Vite, pnpm, React Router con Layout/Outlet, Tailwind CSS, componentes Base UI compatibles con la base shadcn y Lucide. Las llamadas a datos están separadas en `src/api`. Se añade el cliente oficial de Supabase para manejar sesiones y consultas; evita implementar manualmente la renovación de tokens. Despliegue previsto en Vercel.
+Se conserva la forma de trabajo de `demo-react`: React con JavaScript/JSX, Vite, pnpm, React Router con Layout/Outlet, Tailwind CSS, componentes Base UI compatibles con la base shadcn y Lucide. Las llamadas a datos están separadas en `src/api`. Se añade el cliente oficial de Supabase para manejar sesiones y consultas; evita implementar manualmente la renovación de tokens. El sitio está desplegado en Vercel y conectado a Supabase.
 
 ```text
 src/
@@ -50,10 +57,8 @@ Copiar `.env.example` a `.env.local` y completar los valores públicos según [l
 
 ## Pendiente
 
-- Crear/conectar el proyecto real de Supabase, aplicar SQL, crear el administrador y probar sesión/persistencia en ese servicio.
-- Crear el proyecto de Vercel y verificar la URL publicada. **Aún no existe un despliegue verificado.**
 - Reportes completos por periodo y producto más vendido (el registro de ventas y el total de las últimas 100 ventas ya están incluidos).
-- Completar el acceso a Telegram, crear el bot, guardar TELEGRAM_BOT_TOKEN y vincular el chat. El worker y Cron ya están instalados. Ver [docs/ALERTAS.md](docs/ALERTAS.md).
+- Sustituir existencias iniciales y precios de ejemplo por datos confirmados del negocio.
 - Carga de archivos de fotos a Storage (por ahora se editan por URL).
 - Actualización de stock entre visitantes sin recargar: por ahora los datos se consultan al abrir la app y se actualizan después de operaciones del panel. La sincronización en tiempo real queda pendiente.
 
@@ -76,3 +81,5 @@ Plan actualizado en [docs/PLAN_5_DIAS.md](docs/PLAN_5_DIAS.md). Cada avance se s
 ## Ventas y alertas
 
 Registro de ventas con descuento atómico de stock, precio histórico, protección contra reintentos e historial: [docs/VENTAS.md](docs/VENTAS.md). Telegram es ahora el canal elegido para alertas internas; WhatsApp permanece como contacto comercial. Las fotos reales y sus créditos están incluidos en `public/productos`.
+
+El bot de Telegram quedó vinculado y se comprobó la recepción de una alerta real usando el stock de prueba de Almeja (2 kg, mínimo 3 kg). La revisión automática está activa cada dos minutos. Detalles y límites: [docs/ALERTAS.md](docs/ALERTAS.md).
