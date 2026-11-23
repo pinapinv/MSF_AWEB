@@ -1,3 +1,7 @@
 [functions.alertas-stock]
 # Autenticación propia con x-webhook-secret; no es un endpoint de navegador.
 verify_jwt = false
+
+[functions.telegram-alertas]
+# Autenticación propia: secreto de worker generado y almacenado en el esquema privado.
+verify_jwt = false

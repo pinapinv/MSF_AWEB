@@ -11,3 +11,7 @@
 .admin-nav{display:flex;gap:12px;margin:0 0 24px;border-bottom:1px solid var(--line)}.admin-nav a{padding:12px 18px;border-bottom:3px solid transparent;color:#4b6887;font-weight:600}.admin-nav a.active{border-color:var(--primary);color:var(--primary)}.inventory-dialog{width:min(650px,calc(100vw - 32px));padding:28px}.inventory-form h2{font-size:1.5rem;margin-bottom:8px}.inventory-form>p{margin-bottom:24px;color:#52718c}.inventory-form .form-grid{margin-top:22px}.hero h1{font-size:clamp(2.6rem,4.7vw,4.1rem)}
 
 .footer-contact{display:flex;flex-wrap:wrap;gap:12px 24px}.footer-contact a:hover{text-decoration:underline}.footer-contact a:last-child{font-weight:600;color:var(--primary)}
+
+fieldset{padding:0;border:0;min-width:0}.sale-total{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;background:#edf2fa;padding:18px;border-radius:8px;margin-bottom:20px}.sale-total strong{font-size:1.4rem}.sales-page h2{font-size:1.5rem}.admin-nav{flex-wrap:wrap}
+
+.stock-warning{margin-bottom:24px;background:#fff2dc;color:#815116}.stock-warning a{font-weight:650;text-decoration:underline}.pairing-code{display:flex;flex-wrap:wrap;gap:15px;align-items:center;background:#edf2fa;padding:18px;border-radius:8px;margin:18px 0}.pairing-code code{overflow-wrap:anywhere;min-width:0}.alerts-page ol{padding-left:24px;line-height:1.8}.alerts-page a{color:var(--primary);text-decoration:underline}

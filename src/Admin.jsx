@@ -6,9 +6,11 @@ import { supabase } from './lib/supabase'
 import { moneda, validarMovimiento } from './lib/productos'
 import { guardarProducto, registrarMovimiento, traerMovimientos } from './api/productos'
 import { Button } from './components/ui/button'
+import Ventas from './Ventas'
+import Alertas from './Alertas'
 
 const nuevoProducto = { nombre: '', descripcion: '', categoria: 'Pescados', unidad: 'kg', precio: '', stock_minimo: '0', foto_url: '', promocion: false }
-export default function Admin({ inventario = false }) {
+export default function Admin({ inventario = false, ventas = false, alertas = false }) {
   const { productos, recargar, error: errorCatalogo, cargando } = useOutletContext()
   const [acceso, setAcceso] = useState('verificando')
   const [editor, setEditor] = useState(null)
@@ -46,7 +48,7 @@ export default function Admin({ inventario = false }) {
     let activo = true
     traerMovimientos().then((data) => { if (activo) setHistorial(data) }).catch(() => { if (activo) setHistorialError('No se pudo cargar el historial.') })
     return () => { activo = false }
-  }, [acceso])
+  }, [acceso, ventas])
   async function salir() {
     const { error: fallo } = await supabase.auth.signOut()
     if (fallo) setError('No se pudo cerrar la sesión. Inténtalo nuevamente.')
@@ -83,11 +85,13 @@ export default function Admin({ inventario = false }) {
   if (acceso !== 'permitido') return <main className="container empty"><h1>{acceso === 'error' ? 'No pudimos verificar el acceso' : 'Acceso no autorizado'}</h1><p>{acceso === 'error' ? 'Revisa la conexión y la configuración de Supabase.' : 'Tu cuenta no está habilitada como administrador.'}</p><Button onClick={salir}>Cerrar sesión</Button><Link to="/">Volver al catálogo</Link></main>
   const bajos = productos.filter((p) => Number(p.stock) < Number(p.stock_minimo))
   const campo = (clave, valor) => setEditor((prev) => ({ ...prev, [clave]: valor }))
-  return <main className="container admin-page"><div className="section-title"><div><p className="eyebrow">PANEL ADMINISTRATIVO</p><h1>{inventario ? 'Inventario' : 'Productos e inventario'}</h1></div><Button variant="outline" onClick={salir}><LogOut size={17} /> Salir</Button></div>
-    <nav className="admin-nav" aria-label="Administración"><NavLink to="/admin" end>Productos</NavLink><NavLink to="/admin/inventario">Inventario</NavLink></nav>
+  return <main className="container admin-page"><div className="section-title"><div><p className="eyebrow">PANEL ADMINISTRATIVO</p><h1>{alertas ? 'Alertas de inventario' : ventas ? 'Ventas' : inventario ? 'Inventario' : 'Productos e inventario'}</h1></div><Button variant="outline" onClick={salir}><LogOut size={17} /> Salir</Button></div>
+    <nav className="admin-nav" aria-label="Administración"><NavLink to="/admin" end>Productos</NavLink><NavLink to="/admin/inventario">Inventario</NavLink><NavLink to="/admin/ventas">Ventas</NavLink><NavLink to="/admin/alertas">Alertas</NavLink></nav>
     <div className="stats"><article><Package /><span>Productos</span><strong>{productos.length}</strong></article><article><TriangleAlert /><span>Por debajo del mínimo</span><strong>{bajos.length}</strong></article><article><Package /><span>Agotados</span><strong>{productos.filter((p) => Number(p.stock) === 0).length}</strong></article></div>
     {mensaje && <p role="status" className="notice success">{mensaje}</p>}{error && <p role="alert" className="notice error">{error}</p>}
     {errorCatalogo && <p role="alert" className="notice error">{errorCatalogo}<Button onClick={() => recargar()}>Reintentar</Button></p>}
+    {bajos.length > 0 && <div className="notice stock-warning" role="status"><strong>Inventario bajo:</strong> {bajos.map((p) => `${p.nombre}: ${p.stock} ${p.unidad} (mínimo ${p.stock_minimo})`).join('; ')}. <Link to="/admin/alertas">Ver alertas</Link></div>}
+    {alertas ? <Alertas /> : ventas ? <Ventas productos={productos} recargar={recargar} /> : <>
     <div className="admin-toolbar"><h2>Catálogo de productos</h2><Button disabled={ocupado} onClick={() => { setEditor({ ...nuevoProducto }); setMovimiento(null); setError('') }}><Plus size={18} /> Nuevo producto</Button></div>
     {editor && <form className="editor" onSubmit={guardar}><h2>{editor.id ? 'Editar producto' : 'Nuevo producto'}</h2><div className="form-grid">
       <label>Nombre<input required maxLength={120} value={editor.nombre} onChange={(e) => campo('nombre', e.target.value)} /></label>
@@ -104,5 +108,6 @@ export default function Admin({ inventario = false }) {
     </Dialog.Popup></Dialog.Portal></Dialog.Root>
     <div className="table-wrapper"><table><thead><tr><th>Producto</th><th>Precio</th><th>Existencias</th><th>Mínimo</th><th>Acciones</th></tr></thead><tbody>{productos.map((p) => <tr key={p.id}><td><strong>{p.nombre}</strong><small>{p.categoria}</small></td><td>{moneda(p.precio)} / {p.unidad}</td><td><span className={p.stock < p.stock_minimo ? 'low-stock' : ''}>{p.stock} {p.unidad}</span></td><td>{p.stock_minimo} {p.unidad}</td><td className="table-actions"><Button variant="outline" disabled={ocupado} onClick={() => { setEditor({ ...p }); setMovimiento(null); setError('') }}>Editar</Button><Button variant="outline" disabled={ocupado} onClick={() => { setMovimiento({ productoId: p.id, tipo: 'entrada', cantidad: '', nota: '', solicitudId: crypto.randomUUID() }); setEditor(null); setError('') }}>Inventario</Button></td></tr>)}</tbody></table>{!productos.length && <p className="empty">{cargando ? 'Cargando productos…' : 'Aún no hay productos. Crea el primero para comenzar.'}</p>}</div>
     <section className="history"><h2><History size={22} /> Historial de movimientos</h2><p className="muted">Últimos 100 movimientos. Cada registro conserva las existencias resultantes.</p>{historialError && <p className="notice error" role="alert">{historialError}</p>}<div className="table-wrapper"><table><thead><tr><th>Fecha</th><th>Producto</th><th>Tipo</th><th>Cantidad</th><th>Stock resultante</th><th>Nota</th></tr></thead><tbody>{historial.map((m) => <tr key={m.id}><td>{new Date(m.creado_en).toLocaleString('es-MX', { timeZone: 'America/Tijuana' })}</td><td>{m.productos?.nombre}</td><td>{m.tipo}</td><td>{m.cantidad} {m.productos?.unidad}</td><td>{m.stock_resultante}</td><td>{m.nota || '—'}</td></tr>)}</tbody></table>{!historial.length && !historialError && <p className="empty">Sin movimientos registrados.</p>}</div></section>
+    </>}
   </main>
 }

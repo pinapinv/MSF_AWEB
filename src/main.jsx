@@ -12,6 +12,8 @@ createRoot(document.getElementById('root')).render(<StrictMode><BrowserRouter><R
     <Route index element={<App />} />
     <Route path="login" element={<Login />} />
     <Route path="admin" element={<Admin />} />
+    <Route path="admin/alertas" element={<Admin alertas />} />
+    <Route path="admin/ventas" element={<Admin ventas />} />
     <Route path="admin/inventario" element={<Admin inventario />} />
     <Route path="inventario" element={<Navigate to="/admin/inventario" replace />} />
     <Route path="*" element={<main className="container empty"><h1>Página no encontrada</h1><Link to="/">Volver al catálogo</Link></main>} />

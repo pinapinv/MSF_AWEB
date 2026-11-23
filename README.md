@@ -52,8 +52,8 @@ Copiar `.env.example` a `.env.local` y completar los valores públicos según [l
 
 - Crear/conectar el proyecto real de Supabase, aplicar SQL, crear el administrador y probar sesión/persistencia en ese servicio.
 - Crear el proyecto de Vercel y verificar la URL publicada. **Aún no existe un despliegue verificado.**
-- Registro de ventas, reportes por periodo, ingresos y producto más vendido.
-- Alertas WhatsApp: detección y cola instaladas, función de envío preparada y desplegada. Falta configurar Meta, secretos y webhook para activar envíos y confirmar recepción. Ver [docs/ALERTAS.md](docs/ALERTAS.md).
+- Reportes completos por periodo y producto más vendido (el registro de ventas y el total de las últimas 100 ventas ya están incluidos).
+- Completar el acceso a Telegram, crear el bot, guardar TELEGRAM_BOT_TOKEN y vincular el chat. El worker y Cron ya están instalados. Ver [docs/ALERTAS.md](docs/ALERTAS.md).
 - Carga de archivos de fotos a Storage (por ahora se editan por URL).
 - Actualización de stock entre visitantes sin recargar: por ahora los datos se consultan al abrir la app y se actualizan después de operaciones del panel. La sincronización en tiempo real queda pendiente.
 
@@ -72,3 +72,7 @@ Verificados en navegador: catálogo, búsqueda, detalle, filtro de disponibilida
 ## Avances y commits
 
 Plan actualizado en [docs/PLAN_5_DIAS.md](docs/PLAN_5_DIAS.md). Cada avance se sube con un mensaje descriptivo, usando la identidad Git de la estudiante, sin atribuciones de coautoría a herramientas.
+
+## Ventas y alertas
+
+Registro de ventas con descuento atómico de stock, precio histórico, protección contra reintentos e historial: [docs/VENTAS.md](docs/VENTAS.md). Telegram es ahora el canal elegido para alertas internas; WhatsApp permanece como contacto comercial. Las fotos reales y sus créditos están incluidos en `public/productos`.
