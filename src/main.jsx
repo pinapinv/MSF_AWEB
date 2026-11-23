@@ -4,12 +4,14 @@ import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router'
 import Layout from './Layout'
 import App from './App'
 import Login from './Login'
+import Carrito from './Carrito'
 import Admin from './Admin'
 import './index.css'
 
 createRoot(document.getElementById('root')).render(<StrictMode><BrowserRouter><Routes>
   <Route element={<Layout />}>
     <Route index element={<App />} />
+    <Route path="carrito" element={<Carrito />} />
     <Route path="login" element={<Login />} />
     <Route path="admin" element={<Admin />} />
     <Route path="admin/alertas" element={<Admin alertas />} />

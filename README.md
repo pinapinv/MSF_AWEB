@@ -85,3 +85,7 @@ Los clientes pueden [solicitar un producto por Telegram](docs/PEDIDOS_TELEGRAM.m
 Registro de ventas con descuento atómico de stock, precio histórico, protección contra reintentos e historial: [docs/VENTAS.md](docs/VENTAS.md). Telegram es ahora el canal elegido para alertas internas; WhatsApp permanece como contacto comercial. Las fotos reales y sus créditos están incluidos en `public/productos`.
 
 El bot de Telegram quedó vinculado y se comprobó la recepción de una alerta real usando el stock de prueba de Almeja (2 kg, mínimo 3 kg). La revisión automática está activa cada dos minutos. Detalles y límites: [docs/ALERTAS.md](docs/ALERTAS.md).
+
+## Carrito de mayoreo
+
+El catálogo permite agregar varios productos y elegir sus toneladas en `/carrito`. Al procesarlo, se prepara un pedido con precios del servidor que el cliente envía al bot. El administrador acepta o deniega el carrito completo desde Telegram. Solo aceptar registra las ventas y descuenta stock; no hay reservas ni verificación bancaria. [Guía del carrito](docs/PEDIDOS_TELEGRAM.md).

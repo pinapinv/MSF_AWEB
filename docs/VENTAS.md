@@ -38,3 +38,7 @@ Las fotografías son reales, de referencia, con origen y licencia en `/creditos-
 La responsable autorizó sustituir las cantidades anteriores por datos de ejemplo: filete 5 t, camarón 3 t, pulpo 1.5 t, almeja 1 t y pescado entero 4 t. Todos los mínimos son 1 t. El ostión conserva su condición de peso y precio pendientes. Estos datos no son un conteo real del negocio.
 
 Cada ajuste se registró como movimiento con la nota «Ajuste de stock de ejemplo autorizado: toneladas enteras y medias». No se redondearon las ventas ni los movimientos anteriores. Para reproducir esta etapa, aplicar `supabase/sql/toneladas_enteras_medias.sql` una sola vez, después de `pedidos_telegram.sql`.
+
+## Dinámica actual: carrito
+
+Las cantidades se eligen en el carrito de la página, no en una conversación de Telegram. Procesar prepara el resumen completo y permite enviarlo al bot. La aceptación administrativa es por carrito y registra una venta por producto en una transacción. No debe volver a capturarse manualmente. Ver [guía actual](PEDIDOS_TELEGRAM.md).

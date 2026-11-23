@@ -91,3 +91,7 @@ Pedí que la solicitud y mi decisión se gestionen con el bot. El cliente elige 
 Decidí que stock, movimientos y ventas nuevas usen múltiplos de 0.5 toneladas, y que el mínimo para alertas sea 1 tonelada. Autoricé existencias de ejemplo para sustituir las fracciones pequeñas que resultaron de la conversión anterior.
 
 **Consecuencia:** no se aceptan cantidades como 0.001, 0.7 o 1.25 toneladas en el panel, los pedidos ni las funciones de la base. Los valores anteriores permanecen en el historial con su precisión original y los nuevos ajustes se identifican como datos de ejemplo autorizados. Las solicitudes antiguas aún pendientes con cantidades incompatibles se vencen sin vender ni descontar stock.
+
+## 16. Elegir cantidades en un carrito web
+
+Decidí trasladar la selección de productos y toneladas a un carrito de la aplicación y usar Telegram para enviar el pedido completo y decidir su aceptación. La página prepara el resumen con precios del servidor; el administrador decide por todo el carrito. Si cualquier producto ya no cumple precio o disponibilidad, no se descuenta ninguno. El pago sigue acordándose con el negocio. Los pedidos individuales previos se conservan como historial.

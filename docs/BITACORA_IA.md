@@ -91,3 +91,7 @@ Después reporté que el botón Start no hacía nada. La asistencia identificó 
 ## Toneladas enteras o medias y mínimo de una tonelada
 
 Pedí eliminar las cantidades pequeñas como 0.001 toneladas y usar solo enteros o medios, por ejemplo una tonelada y media. Autoricé inventar existencias de ejemplo y fijé el mínimo de inventario en una tonelada. La asistencia cargó filete 5 t, camarón 3 t, pulpo 1.5 t, almeja 1 t y pescado entero 4 t, conservando el ostión pendiente. Se registraron los ajustes en el historial y se adaptaron formularios, validaciones de la base y mensajes de Telegram. Las cantidades nuevas son múltiplos de 0.5; los registros anteriores no se redondearon.
+
+## Carrito dentro de la aplicación
+
+Pedí cambiar la dinámica para elegir productos y toneladas dentro de un carrito y pasar el pedido completo a Telegram para decidir si se concreta. Delegué la implementación del carrito, su persistencia local, el resumen calculado en el servidor y la aprobación administrativa. Las pruebas verifican que todos los productos se descuenten juntos y que el rechazo o falta de stock no deje una venta parcial. Telegram deja de preguntar cantidades en este flujo.

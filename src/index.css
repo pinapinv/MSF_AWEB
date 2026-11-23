@@ -30,3 +30,7 @@ fieldset{padding:0;border:0;min-width:0}.sale-total{display:flex;flex-wrap:wrap;
 .detail-contact{margin-top:12px}.telegram-orders{margin-top:32px}.order-note{max-width:65ch}
 
 .telegram-options{display:flex;flex-direction:column;gap:10px}.telegram-options p{font-size:.85rem;line-height:1.6;margin:2px 0;overflow-wrap:anywhere}.telegram-options .button{width:100%}
+
+.cart-page>p{max-width:75ch}.cart-lines{display:grid;gap:18px}.cart-line{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:20px;align-items:center;border-bottom:1px solid var(--line);padding:16px 0}.cart-line h2{font-size:1.15rem}.cart-line p{font-size:.85rem;color:#52718c;margin:0}.cart-line label{margin:0}.cart-summary{white-space:pre-wrap;font:inherit;background:#edf2fa;padding:18px;border-radius:8px}.cart-page .actions{flex-wrap:wrap}@media(max-width:720px){.site-header{flex-wrap:wrap}.site-header nav{flex-wrap:wrap}.cart-line{grid-template-columns:1fr 1fr}.cart-line>div{grid-column:1/-1}}
+
+.order-products{white-space:pre-wrap;min-width:220px;max-width:450px}.product-card .card-bottom>.button:last-child{width:100%}
