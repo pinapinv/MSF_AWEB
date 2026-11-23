@@ -1,7 +1,9 @@
 -- Ejecutar una vez: cantidades de prueba autorizadas, no inventario real verificado.
 -- Se usan entradas auditables; repetir no vuelve a sumar existencias.
 begin;
-select set_config('request.jwt.claim.sub', (select id::text from auth.users where email='f376160@uabc.edu.mx'), true);
+-- Sustituir el marcador por el UUID de un administrador autorizado.
+-- El cast rechaza el marcador sin completar antes de modificar el catálogo.
+select set_config('request.jwt.claim.sub', 'REEMPLAZAR_POR_UUID_ADMINISTRADOR'::uuid::text, true);
 do $$
 declare fila record;
 begin
