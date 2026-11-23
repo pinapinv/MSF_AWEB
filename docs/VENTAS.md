@@ -10,6 +10,10 @@ La conversión guarda los valores anteriores en `conversiones_unidad`, consultab
 
 ## Flujo de venta
 
+El flujo integrado ahora se inicia con **Solicitar por Telegram** desde el detalle de un producto. El bot pregunta cantidad y envía la solicitud al administrador. Aceptar registra automáticamente la venta y descuenta stock; denegar no modifica el inventario. No registrar esa misma venta otra vez con el formulario manual. Ver [pedidos por Telegram](PEDIDOS_TELEGRAM.md).
+
+El siguiente flujo manual sigue disponible para ventas coordinadas por otros medios:
+
 1. El cliente abre un producto y pulsa **Consultar por WhatsApp**.
 2. El negocio acuerda cantidad, entrega y pago por ese canal. La página no cobra ni verifica pagos bancarios.
 3. Después de recibir el pago, el administrador entra en **Ventas**, selecciona el producto y la cantidad y añade una referencia opcional.

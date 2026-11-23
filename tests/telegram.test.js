@@ -5,11 +5,12 @@ import { crearTelegramHandler } from '../supabase/functions/telegram-alertas/han
 const secret = 'a'.repeat(64), codigo = '94edb91b-1339-4d37-9fb9-ea7a258ebf16'
 const request = (key=secret) => new Request('https://example.test',{method:'POST',headers:{'x-worker-secret':key}})
 function fixture({ token='token-de-prueba', autorizado=true, vinculado=true, updates=[], resultado={ok:true,result:{message_id:42}} }={}) {
-  const config={codigo,chat_id:vinculado?'12345':null,update_offset:0}, estados=[], revisiones=[], solicitudes=[]
+  const config={codigo,chat_id:vinculado?'12345':null,update_offset:0,webhook_activo:true}, estados=[], revisiones=[], solicitudes=[]
   const db={
     rpc:async (method,args)=>{
       if(method==='validar_worker_telegram') return {data:autorizado}
       if(method==='config_worker_telegram') return {data:{...config}}
+      if(method==='telegram_tomar_salida') return {data:null}
       if(method==='revision_telegram'){revisiones.push(args);return {}}
       if(method==='vincular_telegram'){assert.equal(args.p_codigo,codigo);config.chat_id=args.p_chat_id;return {}}
       if(method==='tomar_alerta_stock')return {data:[{id:'alerta',nombre_producto:'Almeja',cantidad:2,minimo:3,unidad:'kg'}]}

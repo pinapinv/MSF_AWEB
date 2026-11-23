@@ -80,6 +80,8 @@ Plan actualizado en [docs/PLAN_5_DIAS.md](docs/PLAN_5_DIAS.md). Cada avance se s
 
 ## Ventas y alertas
 
+Los clientes pueden [solicitar un producto por Telegram](docs/PEDIDOS_TELEGRAM.md), responder la cantidad en toneladas y esperar la decisión del administrador en su chat con el bot. Aceptar registra la venta y descuenta stock una sola vez; denegar conserva existencias. El bot no verifica pagos ni reserva stock antes de aceptar. Historial en Administración > Alertas.
+
 Registro de ventas con descuento atómico de stock, precio histórico, protección contra reintentos e historial: [docs/VENTAS.md](docs/VENTAS.md). Telegram es ahora el canal elegido para alertas internas; WhatsApp permanece como contacto comercial. Las fotos reales y sus créditos están incluidos en `public/productos`.
 
 El bot de Telegram quedó vinculado y se comprobó la recepción de una alerta real usando el stock de prueba de Almeja (2 kg, mínimo 3 kg). La revisión automática está activa cada dos minutos. Detalles y límites: [docs/ALERTAS.md](docs/ALERTAS.md).

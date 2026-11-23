@@ -79,3 +79,9 @@ Pedí commits descriptivos por avance, sin atribuir coautoría a la IA. Eso no s
 Aclaré que el negocio comercializa al mayoreo y elegí manejar todos los productos por tonelada. Acepté convertir los productos por kg multiplicando el precio por 1,000 y dividiendo existencias y mínimos entre 1,000. Para el ostión elegí dejar peso y precio pendientes, sin inventar equivalencias desde piezas.
 
 **Consecuencia:** el catálogo, los formularios y las nuevas ventas usan toneladas. Los movimientos y ventas anteriores conservan su unidad original; una tabla administrativa guarda los valores previos a la conversión. No habilito ventas ni alertas de stock del ostión mientras su peso y precio estén pendientes. También elegí una presentación marina con azul profundo, acentos arena y fotografías de referencia, conservando el eslogan y usando el texto de presentación que proporcioné.
+
+## 14. Aceptar o denegar solicitudes por Telegram
+
+Pedí que la solicitud y mi decisión se gestionen con el bot. El cliente elige el producto desde la página e indica toneladas. La solicitud llega a mi chat privado con botones para aceptar y descontar stock, o denegar. No elegí una cantidad fija de descuento: se descuenta la cantidad que indicó el cliente y que acepté.
+
+**Consecuencia:** una solicitud pendiente no reserva stock. Al aceptar se vuelve a validar precio y disponibilidad y se registra la venta atómicamente. Los botones repetidos no duplican descuentos. Aceptar no verifica pagos; debo coordinar pago y entrega, y no volver a registrar manualmente una venta que el bot ya registró.

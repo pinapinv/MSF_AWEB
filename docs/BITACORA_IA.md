@@ -81,3 +81,7 @@ Solicité esta bitácora y el diario de decisiones a la propia IA, en primera pe
 ## Ajuste posterior: comercialización al mayoreo
 
 Aclaré que la empresa es una comercializadora de mayoreo y pedí un diseño más marino y un nuevo texto de presentación. Confirmé que todos los productos deben manejarse por tonelada y que el ostión debe quedar pendiente de peso y precio. Delegué a la IA el rediseño, la conversión matemática de los productos por kg y la adaptación de inventario y ventas. Pedí conservar los registros anteriores y no inventar equivalencias entre piezas y peso. La implementación incluye pruebas de conservación del historial, cálculo de ventas y bloqueo de productos pendientes.
+
+## Solicitudes de venta con aprobación desde Telegram
+
+Pedí que el cliente envíe su producto de interés al bot, que este pregunte cantidad y que yo pueda aceptar o denegar desde mi chat de Telegram. Delegué la incorporación de enlaces por producto, conversaciones privadas, solicitudes pendientes y botones administrativos. Elegí que el stock baje al aceptar. La asistencia incluyó pruebas de autorización, decisiones repetidas, rechazo y stock insuficiente, además de una aceptación en la base real que se revirtió al terminar para no dejar una venta de prueba. El bot no comprueba pagos bancarios.

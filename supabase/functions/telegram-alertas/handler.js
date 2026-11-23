@@ -1,9 +1,12 @@
+import { procesarEventoTelegram, enviarRespuestasTelegram } from './pedidos.js'
+
 const json = (data, status = 200) => Response.json(data, { status })
 
 export function crearTelegramHandler({ db, env, enviar = fetch }) {
   return async (req) => {
     if (req.method !== 'POST') return json({ error: 'method_not_allowed' }, 405)
-    const secreto = req.headers.get('x-worker-secret') || ''
+    const esWebhook = Boolean(req.headers.get('x-telegram-bot-api-secret-token'))
+    const secreto = (esWebhook ? req.headers.get('x-telegram-bot-api-secret-token') : req.headers.get('x-worker-secret')) || ''
     if (!/^[a-f0-9]{64}$/.test(secreto)) return json({ error: 'unauthorized' }, 401)
     const { data: autorizado, error: falloAuth } = await db.rpc('validar_worker_telegram', { p_secreto: secreto })
     if (falloAuth || !autorizado) return json({ error: 'unauthorized' }, 401)
@@ -28,6 +31,19 @@ export function crearTelegramHandler({ db, env, enviar = fetch }) {
     try {
       let { data: config, error: fallo } = await db.rpc('config_worker_telegram')
       if (fallo) return json({ error: 'configuration_failed' }, 500)
+      if (esWebhook) {
+        if (Number(req.headers.get('content-length')) > 65536) return json({ error: 'too_large' }, 413)
+        let update
+        try { const cuerpo = await req.text(); if (cuerpo.length > 65536) return json({ error: 'too_large' }, 413); update = JSON.parse(cuerpo) }
+        catch { return json({ error: 'invalid_json' }, 400) }
+        await procesarEventoTelegram(db, update)
+        if (update.callback_query?.id) {
+          try { await api('answerCallbackQuery', { callback_query_id: update.callback_query.id }) } catch { /* El pedido ya está guardado. */ }
+        }
+        try { await enviarRespuestasTelegram(db, api) }
+        catch { await revision('respuesta_por_verificar') }
+        return json({ recibido: true })
+      }
       if (!config.chat_id) {
         const updates = await api('getUpdates', { offset: config.update_offset, limit: 100, timeout: 0, allowed_updates: ['message'] })
         if (!updates.payload.ok) { await revision('telegram_' + updates.status); return json({ vinculado: false }, 502) }
@@ -47,6 +63,13 @@ export function crearTelegramHandler({ db, env, enviar = fetch }) {
         config = actual.data
         if (actual.error || !config?.chat_id) return json({ vinculado: false })
       }
+      if (!config.webhook_activo) {
+        const instalado = await api('setWebhook', { url: `${env('SUPABASE_URL')}/functions/v1/telegram-alertas`, secret_token: secreto, allowed_updates: ['message', 'callback_query'], max_connections: 1, drop_pending_updates: false })
+        if (!instalado.payload.ok) { await revision('webhook_no_configurado'); return json({ error: 'webhook_failed' }, 502) }
+        const guardado = await db.rpc('telegram_marcar_webhook')
+        if (guardado.error) throw new Error('webhook_save_failed')
+      }
+      await enviarRespuestasTelegram(db, api)
       const pendientes = await db.from('alertas_stock').select('id').eq('estado','pendiente').is('resuelta_en',null).order('creada_en').limit(10)
       if (pendientes.error) throw new Error('pending_query_failed')
       let enviados = 0

@@ -27,6 +27,8 @@ El token controla el bot: debe guardarse solo como secreto en Supabase. El códi
 
 ## Reglas de envío
 
+El bot también recibe [solicitudes de venta por Telegram](PEDIDOS_TELEGRAM.md) mediante un webhook autenticado. La revisión programada de inventario se conserva; el webhook permite atender las solicitudes sin esperar al siguiente ciclo. No usar otro consumidor de `getUpdates` después de activar el webhook.
+
 Se registra un aviso cuando `stock < stock_minimo`. Reponer hasta el mínimo resuelve el episodio y cancela avisos pendientes. Una nueva bajada crea otro episodio. Los avisos repetidos no se envían dos veces; el servidor reclama cada registro de forma atómica.
 
 Se procesan hasta diez alertas por revisión. Una respuesta aceptada guarda el identificador del mensaje de Telegram. Los fallos explícitos quedan rechazados y los fallos ambiguos quedan por verificar: no se reintentan automáticamente porque podrían duplicar avisos. Revisar el historial antes de restablecerlos. Un proceso interrumpido puede quedar en `procesando` y requiere revisión.
