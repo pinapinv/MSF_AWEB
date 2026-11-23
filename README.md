@@ -53,7 +53,7 @@ Copiar `.env.example` a `.env.local` y completar los valores públicos según [l
 - Creación y edición de productos, precios, descripción, promoción, stock mínimo y foto mediante URL HTTPS.
 - Entradas y salidas por merma, historial de los últimos 100 movimientos y resumen de inventario.
 - Cambio de stock y registro de historial en una sola transacción, bloqueo por producto y protección contra reintentos duplicados.
-- Existencias negativas rechazadas; hasta seis decimales por tonelada para conservar la precisión de los registros previos.
+- Existencias negativas rechazadas; cantidades nuevas en toneladas enteras o medias (0.5, 1, 1.5...). El mínimo para alertas es una tonelada y el historial anterior conserva su precisión.
 
 ## Pendiente
 

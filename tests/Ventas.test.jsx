@@ -9,11 +9,11 @@ afterEach(() => { cleanup(); vi.clearAllMocks() })
 
 it('requiere confirmar el pago, calcula monto y registra la venta', async () => {
   const user = userEvent.setup(), recargar = vi.fn(async () => {})
-  render(<Ventas productos={[{id:'p1',nombre:'Filete',unidad:'kg',stock:5,precio:180}]} recargar={recargar} />)
+  render(<Ventas productos={[{id:'p1',nombre:'Filete',unidad:'tonelada',stock:5,precio:180}]} recargar={recargar} />)
   const confirmar = screen.getByRole('button',{name:'Confirmar venta y descontar stock'})
   expect(confirmar.disabled).toBe(true)
   await user.selectOptions(screen.getByLabelText('Producto'),'p1')
-  await user.type(screen.getByLabelText('Cantidad (kg)'),'2.5')
+  await user.type(screen.getByLabelText('Cantidad (tonelada)'),'2.5')
   expect(screen.getByText('Total: $450.00')).toBeTruthy()
   await user.click(screen.getByRole('checkbox'))
   await user.click(confirmar)

@@ -2,7 +2,7 @@
 
 ## Operación por tonelada
 
-La comercializadora opera al mayoreo por tonelada (1 t = 1,000 kg). La conversión conserva el valor: precio por kg × 1,000; existencias y mínimo en kg ÷ 1,000. Los precios siguen siendo de ejemplo hasta ser confirmados por el negocio. Se admiten seis decimales de tonelada y los montos se redondean a centavos.
+La comercializadora opera al mayoreo por tonelada (1 t = 1,000 kg). La conversión conserva el valor: precio por kg × 1,000; existencias y mínimo en kg ÷ 1,000. Los precios siguen siendo de ejemplo hasta ser confirmados por el negocio. Las nuevas cantidades solo admiten toneladas enteras o medias: 0.5, 1, 1.5, 2... Los montos se redondean a centavos. El mínimo fijo de inventario para alertas es 1 tonelada.
 
 El ostión queda **por cotizar**, con peso y precio pendientes. No se deduce un peso a partir de piezas ni se permite registrar movimientos o ventas mientras esté pendiente. Para habilitarlo: editar el producto, confirmar su precio por tonelada, desmarcar la casilla de pendientes, guardar y registrar el peso real como entrada. Los ceros internos mientras está pendiente no representan un conteo confirmado.
 
@@ -32,3 +32,9 @@ Si la venta baja las existencias por debajo del mínimo, se genera la alerta y T
 Se cargaron cantidades de prueba autorizadas mediante movimientos con la nota **Carga inicial de prueba autorizada**: filete 12 kg, camarón 8 kg, pulpo 5 kg, ostión 36 piezas, almeja 2 kg y pescado entero 10 kg. No son cantidades verificadas en el negocio. Sustituirlas con entradas o mermas de ajuste después del conteo real.
 
 Las fotografías son reales, de referencia, con origen y licencia en `/creditos-fotos.html`. No se presentan como fotografías tomadas en el local.
+
+## Stock de ejemplo vigente: enteros y medios
+
+La responsable autorizó sustituir las cantidades anteriores por datos de ejemplo: filete 5 t, camarón 3 t, pulpo 1.5 t, almeja 1 t y pescado entero 4 t. Todos los mínimos son 1 t. El ostión conserva su condición de peso y precio pendientes. Estos datos no son un conteo real del negocio.
+
+Cada ajuste se registró como movimiento con la nota «Ajuste de stock de ejemplo autorizado: toneladas enteras y medias». No se redondearon las ventas ni los movimientos anteriores. Para reproducir esta etapa, aplicar `supabase/sql/toneladas_enteras_medias.sql` una sola vez, después de `pedidos_telegram.sql`.

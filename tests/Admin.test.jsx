@@ -25,7 +25,7 @@ afterEach(() => { cleanup(); vi.clearAllMocks() })
 function abrirPanel() {
   const recargar = vi.fn(async () => {})
   render(<MemoryRouter initialEntries={['/admin']}><Routes>
-    <Route element={<Outlet context={{ productos: [{ id: 'producto-1', nombre: 'Filete', categoria: 'Pescados', unidad: 'kg', precio: 180, stock: 5, stock_minimo: 2 }], recargar, cargando: false, error: '' }} />}>
+    <Route element={<Outlet context={{ productos: [{ id: 'producto-1', nombre: 'Filete', categoria: 'Pescados', unidad: 'tonelada', precio: 180, stock: 5, stock_minimo: 2 }], recargar, cargando: false, error: '' }} />}>
       <Route path="admin" element={<Admin />} />
       <Route path="admin/inventario" element={<Admin inventario />} />
     </Route>
@@ -40,7 +40,7 @@ describe('Acceso e interacción del inventario', () => {
     await user.click(await screen.findByRole('button', { name: 'Inventario', exact: true }))
     const dialog = await screen.findByRole('dialog', { name: 'Movimiento de inventario' })
     expect(dialog.contains(document.activeElement)).toBe(true)
-    await user.type(within(dialog).getByLabelText('Cantidad (kg)'), '2.5')
+    await user.type(within(dialog).getByLabelText('Cantidad (tonelada)'), '2.5')
     await user.click(within(dialog).getByRole('button', { name: 'Registrar movimiento' }))
     await waitFor(() => expect(registrarMovimiento).toHaveBeenCalledWith(expect.objectContaining({ productoId: 'producto-1', tipo: 'entrada', cantidad: '2.5', solicitudId: expect.any(String) })))
     await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull())
@@ -53,7 +53,7 @@ describe('Acceso e interacción del inventario', () => {
     abrirPanel()
     await user.click(await screen.findByRole('button', { name: 'Inventario', exact: true }))
     const dialog = await screen.findByRole('dialog')
-    await user.type(within(dialog).getByLabelText('Cantidad (kg)'), '1')
+    await user.type(within(dialog).getByLabelText('Cantidad (tonelada)'), '1')
     await user.click(within(dialog).getByRole('button', { name: 'Registrar movimiento' }))
     expect((await within(dialog).findByRole('alert')).textContent).toContain('Error de conexión')
     await user.click(within(dialog).getByRole('button', { name: 'Cancelar' }))

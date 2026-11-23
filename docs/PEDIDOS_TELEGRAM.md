@@ -5,7 +5,7 @@
 1. Abrir un producto disponible del catálogo y pulsar **Solicitar en Telegram Web**, o **Abrir en la app de Telegram** si se tiene la aplicación instalada.
 2. En Web, iniciar sesión en ese navegador si es necesario. Abrir el bot y pulsar **Iniciar** si Telegram lo solicita. El enlace lleva el identificador del producto; no incluye credenciales.
 3. El bot muestra producto, precio por tonelada y existencias, y pregunta la cantidad.
-4. Escribir solo la cantidad en toneladas, con punto o coma decimal y hasta seis decimales. `0.001` toneladas equivale a 1 kg. La selección vence a los 30 minutos; `/cancelar` permite elegir otro producto.
+4. Escribir solo la cantidad en toneladas, enteras o medias, con punto o coma: `0.5`, `1`, `1.5`, `2`... `1.5` es una tonelada y media. No se permiten otras fracciones, como `0.001` o `1.25`. La selección vence a los 30 minutos; `/cancelar` permite elegir otro producto.
 5. Recibir el número y monto de la solicitud y esperar la decisión del negocio. Solo se admite una solicitud pendiente por cliente durante 24 horas.
 
 El ostión permanece pendiente de peso y precio y no permite solicitudes de venta. WhatsApp conserva el contacto para consultas y cotizaciones especiales.
@@ -39,6 +39,10 @@ Los eventos se deduplican por `update_id`. Las respuestas se guardan en una cola
 
 Las pruebas cubren decisiones autorizadas, bloqueo de decisiones de clientes, ventas y movimientos atómicos, repetición de botones, rechazo sin descuento, falta de stock, permisos y respuestas ambiguas. Se comprobó además una aceptación en la base real dentro de una transacción revertida, sin dejar una venta de prueba ni reducir existencias.
 
-Se probó el chat real con una solicitud de Filete de pescado por 0.001 toneladas y se pulsó Denegar. Llegaron ambas respuestas y se comprobó que el stock permaneció en 0.012 toneladas y que no se creó ninguna venta. Esa solicitud denegada queda como evidencia de prueba en el historial.
+Como comprobación histórica, antes de limitar la operación a toneladas enteras o medias, se probó el chat real con una solicitud de Filete de pescado por 0.001 toneladas y se pulsó Denegar. Llegaron ambas respuestas y se comprobó que el stock permaneció en 0.012 toneladas y que no se creó ninguna venta. Esa solicitud denegada queda como evidencia de prueba en el historial.
 
 Fuentes oficiales: [Telegram Bot API](https://core.telegram.org/bots/api#setwebhook), [enlaces de inicio](https://core.telegram.org/bots/features#deep-linking).
+
+## Cantidades actuales
+
+El stock vigente y los mínimos se ajustaron con `supabase/sql/toneladas_enteras_medias.sql`. Las nuevas solicitudes, ventas y movimientos admiten únicamente múltiplos positivos de 0.5 toneladas. El mínimo de inventario es 1 tonelada: la alerta se genera por debajo de ese valor. Los registros históricos mantienen sus cantidades originales.

@@ -37,11 +37,11 @@ export default function Ventas({ productos, recargar }) {
   }
   return <section className="sales-page">
     <form className="editor" onSubmit={vender}>
-      <h2>Registrar venta</h2><p className="muted">Registra aquí las ventas acordadas por WhatsApp o en el negocio, después de confirmar el pago. Cada registro corresponde a un producto.</p>
+      <h2>Registrar venta</h2><p className="muted">Registra aquí las ventas acordadas por WhatsApp o en el negocio, después de confirmar el pago. Cada registro corresponde a un producto. Cantidades permitidas: 0.5, 1, 1.5, 2... toneladas.</p>
       {error && <p className="notice error" role="alert">{error}</p>}{mensaje && <p className="notice success" role="status">{mensaje}</p>}
       <fieldset disabled={ocupado}><div className="form-grid">
         <label>Producto<select required value={productoId} onChange={(e) => setProductoId(e.target.value)}><option value="">Selecciona un producto</option>{productos.map((p) => <option key={p.id} value={p.id} disabled={p.cotizacion_pendiente || Number(p.stock) <= 0}>{p.nombre}{p.cotizacion_pendiente ? ' · Peso y precio pendientes' : Number(p.stock) <= 0 ? ' · Agotado' : ''}</option>)}</select></label>
-        <label>Cantidad{producto ? ` (${producto.unidad})` : ''}<input required type="number" min={producto?.unidad === 'tonelada' ? '0.000001' : '0.001'} step={producto?.unidad === 'tonelada' ? '0.000001' : '0.001'} max={producto?.stock || undefined} value={cantidad} onChange={(e) => setCantidad(e.target.value)} /></label>
+        <label>Cantidad{producto ? ` (${producto.unidad})` : ''}<input required type="number" min={producto?.unidad === 'tonelada' ? '0.5' : '0.001'} step={producto?.unidad === 'tonelada' ? '0.5' : '0.001'} max={producto?.stock || undefined} value={cantidad} onChange={(e) => setCantidad(e.target.value)} /></label>
         <label className="full-width">Referencia o nota (opcional)<textarea maxLength={500} value={nota} onChange={(e) => setNota(e.target.value)} placeholder="Referencia de la venta o entrega" /></label>
       </div>
       {producto && <div className="sale-total"><span>Existencias: {producto.stock} {producto.unidad} · Precio: {moneda(producto.precio)} / {producto.unidad}</span><strong>Total: {moneda(Number.isFinite(total) ? total : 0)}</strong></div>}

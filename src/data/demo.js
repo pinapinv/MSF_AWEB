@@ -8,12 +8,12 @@ export const productosDemo = [
   { id: 'demo-6', nombre: 'Pescado entero', categoria: 'Pescados', precio: 140, unidad: 'kg', stock: 10, stock_minimo: 3, descripcion: '', foto_url: '/productos/pescado.jpg', promocion: false },
 ]
 
-// Conversión de datos de ejemplo; las piezas no equivalen a un peso conocido.
+// Cantidades de ejemplo autorizadas: enteros y medios; mínimo de alerta de una tonelada.
+const stockEjemplo = { 'demo-1': 5, 'demo-2': 3, 'demo-3': 1.5, 'demo-5': 1, 'demo-6': 4 }
 for (const producto of productosDemo) {
-  if (producto.unidad === 'kg') {
-    producto.precio *= 1000; producto.stock /= 1000; producto.stock_minimo /= 1000
-  } else {
-    producto.precio = null; producto.stock = 0; producto.stock_minimo = 0; producto.cotizacion_pendiente = true
-  }
+  if (producto.unidad === 'kg') producto.precio *= 1000
+  else { producto.precio = null; producto.cotizacion_pendiente = true }
   producto.unidad = 'tonelada'
+  producto.stock = stockEjemplo[producto.id] ?? 0
+  producto.stock_minimo = 1
 }

@@ -13,10 +13,11 @@ export function filtrarProductos(productos, { busqueda = '', categoria = '', pre
 export function validarMovimiento(producto, tipo, cantidad) {
   if (producto.cotizacion_pendiente) return 'Confirma el peso y precio antes de registrar movimientos.'
   const numero = Number(cantidad)
-  const escala = producto.unidad === 'tonelada' ? 1000000 : 1000
+  const escala = 1000
   if (!['entrada', 'merma'].includes(tipo)) return 'Tipo de movimiento inválido.'
   if (!Number.isFinite(numero) || numero <= 0) return 'La cantidad debe ser mayor que cero.'
-  if (Math.abs(numero * escala - Math.round(numero * escala)) > 0.000001) return producto.unidad === 'tonelada' ? 'Usa como máximo seis decimales.' : 'Usa como máximo tres decimales.'
+  if (producto.unidad === 'tonelada' && !Number.isInteger(numero * 2)) return 'Usa toneladas enteras o medias toneladas: 0.5, 1, 1.5...'
+  if (producto.unidad !== 'tonelada' && Math.abs(numero * escala - Math.round(numero * escala)) > 0.000001) return 'Usa como máximo tres decimales.'
   if (producto.unidad === 'pieza' && !Number.isInteger(numero)) return 'Los productos por pieza requieren cantidades enteras.'
   if (tipo !== 'entrada' && numero > Number(producto.stock)) return 'No hay existencias suficientes.'
   return ''

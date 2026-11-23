@@ -85,3 +85,9 @@ Aclaré que el negocio comercializa al mayoreo y elegí manejar todos los produc
 Pedí que la solicitud y mi decisión se gestionen con el bot. El cliente elige el producto desde la página e indica toneladas. La solicitud llega a mi chat privado con botones para aceptar y descontar stock, o denegar. No elegí una cantidad fija de descuento: se descuenta la cantidad que indicó el cliente y que acepté.
 
 **Consecuencia:** una solicitud pendiente no reserva stock. Al aceptar se vuelve a validar precio y disponibilidad y se registra la venta atómicamente. Los botones repetidos no duplican descuentos. Aceptar no verifica pagos; debo coordinar pago y entrega, y no volver a registrar manualmente una venta que el bot ya registró.
+
+## 15. Restringir las cantidades a enteros o medias toneladas
+
+Decidí que stock, movimientos y ventas nuevas usen múltiplos de 0.5 toneladas, y que el mínimo para alertas sea 1 tonelada. Autoricé existencias de ejemplo para sustituir las fracciones pequeñas que resultaron de la conversión anterior.
+
+**Consecuencia:** no se aceptan cantidades como 0.001, 0.7 o 1.25 toneladas en el panel, los pedidos ni las funciones de la base. Los valores anteriores permanecen en el historial con su precisión original y los nuevos ajustes se identifican como datos de ejemplo autorizados. Las solicitudes antiguas aún pendientes con cantidades incompatibles se vencen sin vender ni descontar stock.

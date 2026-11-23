@@ -60,12 +60,12 @@ test('conversión a toneladas conserva valor, historial y bloquea ostión sin pe
   } finally { await db.close() }
 })
 
-test('toneladas: precisión de seis decimales y pendientes fuera de filtros de precio y stock', () => {
+test('toneladas: solo enteros o medios y pendientes fuera de filtros de precio y stock', () => {
   const producto = { nombre:'Ostión',unidad:'tonelada',precio:null,stock:0,cotizacion_pendiente:true }
   assert.equal(filtrarProductos([producto],{}).length,1)
   assert.equal(filtrarProductos([producto],{precioMax:'100000'}).length,0)
   assert.equal(filtrarProductos([producto],{disponibles:true}).length,0)
   assert.match(validarMovimiento(producto,'entrada',1),/Confirma el peso/)
-  assert.equal(validarMovimiento({unidad:'tonelada',stock:1},'merma',0.000001),'')
-  assert.match(validarMovimiento({unidad:'tonelada',stock:1},'entrada',0.0000001),/seis decimales/)
+  assert.equal(validarMovimiento({unidad:'tonelada',stock:1},'merma',0.5),'')
+  assert.match(validarMovimiento({unidad:'tonelada',stock:1},'entrada',0.0000001),/enteras o medias/)
 })
