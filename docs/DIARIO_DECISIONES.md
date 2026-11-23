@@ -99,3 +99,7 @@ Decidí trasladar la selección de productos y toneladas a un carrito de la apli
 ## Selección de toneladas desde el catálogo
 
 Decidí elegir la cantidad antes de agregar al carrito, tanto en la tarjeta como en el detalle. El botón agrega esa cantidad, respeta los pasos de 0.5 t y no permite superar el stock contando lo que ya está en el carrito. Pedí retirar el párrafo introductorio del carrito.
+
+## Confirmación con resumen marino
+
+Elegí «Resumen marino» para la confirmación. El formulario se oculta al preparar el pedido para evitar duplicar el contenido; Modificar pedido lo vuelve a mostrar con las cantidades elegidas. La opción de la app instalada queda como alternativa desplegable. La confirmación visual no significa que la venta esté aceptada: la decisión sigue ocurriendo en Telegram.

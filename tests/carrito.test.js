@@ -19,6 +19,7 @@ test('carrito: cantidades, precios de servidor, aceptación completa, duplicados
     await db.exec(await readFile(new URL('../supabase/sql/toneladas_enteras_medias.sql',import.meta.url),'utf8'))
 
  await db.exec(await readFile(new URL('../supabase/sql/carrito_telegram.sql',import.meta.url),'utf8'))
+ await db.exec(await readFile(new URL('../supabase/sql/resumen_carrito_estructurado.sql',import.meta.url),'utf8'))
  const productos=(await db.query("select id,nombre,precio,stock from public.productos where nombre in ('Filete de pescado','Camarón mediano') order by nombre")).rows
  const lineas=productos.map(p=>({producto_id:p.id,cantidad:0.5}))
  const id=crypto.randomUUID()
@@ -26,6 +27,9 @@ test('carrito: cantidades, precios de servidor, aceptación completa, duplicados
  const crear=()=>db.query('select public.crear_carrito($1,$2::jsonb) as carrito',[id,JSON.stringify(lineas)])
  const carrito=(await crear()).rows[0].carrito
  assert.equal(Number(carrito.total),productos.reduce((s,p)=>s+Number(p.precio)*0.5,0))
+ assert.equal(carrito.lineas.length,2)
+ assert.equal(Number(carrito.lineas[0].cantidad),0.5)
+ assert.equal((await crear()).rows[0].carrito.lineas.length,2)
  assert.equal((await crear()).rows[0].carrito.id,id)
  await assert.rejects(db.query('select * from public.carritos_telegram'),/permission denied/)
  await assert.rejects(db.query('select public.crear_carrito($1,$2::jsonb)',[crypto.randomUUID(),JSON.stringify([{producto_id:productos[0].id,cantidad:0.001}])]),/enteras o medias/)

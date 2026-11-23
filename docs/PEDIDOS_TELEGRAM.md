@@ -26,3 +26,7 @@ La función pública `crear_carrito` acepta hasta 20 líneas, valida cantidades 
 Las pruebas comprueban precios calculados por el servidor, cantidades inválidas, permisos, aceptación de varios productos, rechazo, falta de stock sin venta parcial, botones repetidos y selección de cantidades desde el formulario. Las pruebas anteriores de solicitudes individuales permanecen para proteger la compatibilidad. No se usan compras reales para probar descuentos de stock en producción.
 
 Fuentes oficiales: [Telegram Bot API](https://core.telegram.org/bots/api#setwebhook), [enlaces de inicio](https://core.telegram.org/bots/features#deep-linking).
+
+## Confirmación visual
+
+El diseño Resumen marino muestra las líneas y precios confirmados por el servidor, total y acción principal para Telegram Web. Modificar pedido regresa al formulario conservando cantidades. La opción para la aplicación instalada se encuentra en el desplegable alternativo. Aplicar `supabase/sql/resumen_carrito_estructurado.sql` después de `carrito_telegram.sql` para incluir las líneas estructuradas en la respuesta sin cambiar permisos ni la lógica de venta.

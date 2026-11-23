@@ -23,7 +23,7 @@ function Contexto(){
   return <Outlet context={{carrito,setCarrito,cargando:false,productos:[{id:'p1',nombre:'Filete',precio:180000,stock:5},{id:'p2',nombre:'Camarón',precio:260000,stock:3}]}} />
 }
 it('elige cantidades en la página y prepara un único carrito para Telegram sin registrar ventas',async()=>{
-  supabase.rpc.mockResolvedValue({data:{id:'carrito-de-prueba',total:310000,resumen:'Filete 1 t\nCamarón 0.5 t'}})
+  supabase.rpc.mockResolvedValue({data:{id:'carrito-de-prueba',total:310000,resumen:'Filete 1 t\nCamarón 0.5 t',lineas:[{producto_id:'p1',nombre:'Filete',cantidad:1,precio:180000,monto:180000},{producto_id:'p2',nombre:'Camarón',cantidad:0.5,precio:260000,monto:130000}]}})
   const user=userEvent.setup()
   render(<MemoryRouter initialEntries={['/carrito']}><Routes><Route element={<Contexto/>}><Route path="carrito" element={<Carrito/>}/></Route></Routes></MemoryRouter>)
   const cantidad=screen.getByLabelText('Toneladas de Filete')
@@ -31,7 +31,12 @@ it('elige cantidades en la página y prepara un único carrito para Telegram sin
   expect(screen.getByText('$310,000.00')).toBeTruthy()
   await user.click(screen.getByRole('button',{name:'Procesar carrito'}))
   await waitFor(()=>expect(supabase.rpc).toHaveBeenCalledWith('crear_carrito',{p_solicitud:expect.any(String),p_lineas:[{producto_id:'p1',cantidad:1},{producto_id:'p2',cantidad:0.5}]}))
-  const enlace=await screen.findByRole('link',{name:'Enviar carrito en Telegram Web'})
+  const enlace=await screen.findByRole('link',{name:'Enviar pedido por Telegram'})
   expect(decodeURIComponent(enlace.href)).toContain('start=carrito_carrito-de-prueba')
   expect(supabase.rpc).toHaveBeenCalledTimes(1)
+  expect(screen.getByRole('heading',{name:'Revisa tu pedido'})).toBeTruthy()
+  expect(screen.queryByRole('button',{name:'Procesar carrito'})).toBeNull()
+  await user.click(screen.getByRole('button',{name:'Modificar pedido'}))
+  expect(screen.getByLabelText('Toneladas de Filete').value).toBe('1')
+  expect(screen.queryByRole('heading',{name:'Revisa tu pedido'})).toBeNull()
 })

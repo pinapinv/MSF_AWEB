@@ -99,3 +99,7 @@ Pedí cambiar la dinámica para elegir productos y toneladas dentro de un carrit
 ## Selección de toneladas desde el catálogo
 
 Pedí mejorar los botones y elegir toneladas desde las tarjetas del catálogo igual que en el carrito. La asistencia agregó un selector en tarjetas y detalle, validó el stock restante y retiró el párrafo introductorio del carrito que señalé.
+
+## Confirmación con resumen marino
+
+Elegí la propuesta «Resumen marino» para confirmar el carrito y pedí implementarla. Se separaron los productos, toneladas e importes, se destacó el total y se concentró la acción principal en enviar el pedido a Telegram. El resumen usa las líneas calculadas en el servidor. Modificar pedido conserva las cantidades y permite volver a procesarlo.
