@@ -30,3 +30,14 @@ export async function traerMovimientos() {
   if (error) throw error
   return data
 }
+
+export async function registrarVenta({ productoId, cantidad, nota, solicitudId }) {
+  const { error } = await supabase.rpc('registrar_venta', { p_producto: productoId, p_cantidad: Number(cantidad), p_nota: nota.trim(), p_solicitud: solicitudId })
+  if (error) throw error
+}
+
+export async function traerVentas() {
+  const { data, error } = await supabase.from('ventas').select('*').order('fecha', { ascending: false }).limit(100)
+  if (error) throw error
+  return data
+}
