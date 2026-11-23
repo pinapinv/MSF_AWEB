@@ -21,6 +21,8 @@ alter table public.alertas_stock enable row level security;
 revoke all on public.alertas_stock from anon, authenticated;
 grant select on public.alertas_stock to authenticated;
 grant select, update on public.alertas_stock to service_role;
+-- SELECT FOR UPDATE necesita permiso UPDATE en al menos una columna del producto.
+grant select, update (id) on public.productos to service_role;
 create policy "Consultar alertas como administrador" on public.alertas_stock
 for select to authenticated using ((select public.es_administrador()));
 

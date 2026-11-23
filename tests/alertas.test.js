@@ -28,7 +28,7 @@ test('stock bajo: un aviso por episodio, se cancela al reponer y el servidor rec
     await db.exec('reset role; set role authenticated')
     assert.equal((await db.query('select * from public.alertas_stock')).rows.length, 0)
     await assert.rejects(db.query('select * from public.tomar_alerta_stock($1)', [id]), /permission denied/)
-    await db.exec('reset role; grant select,update on public.productos to service_role; set role service_role')
+    await db.exec('reset role; set role service_role')
     const tomada = (await db.query('select * from public.tomar_alerta_stock($1)', [id])).rows
     assert.equal(tomada.length, 1)
     assert.equal(Number(tomada[0].cantidad), 1)
