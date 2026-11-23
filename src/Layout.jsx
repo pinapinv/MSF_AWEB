@@ -25,8 +25,9 @@ export default function Layout() {
     return () => controller.abort()
   }, [])
   return <>
+    <div className="harbor-bar"><span>MARISCOS DE SAN FELIPE</span><span>COMERCIALIZADORA DE PRODUCTOS DEL MAR</span></div>
     <header className="site-header">
-      <NavLink to="/" className="brand"><span className="brand-icon"><Fish /></span><span>Mariscos de San Felipe<small>EL SAUZAL, B.C.</small></span></NavLink>
+      <NavLink to="/" className="brand"><span className="brand-icon"><Fish /></span><span>Mariscos de San Felipe<small>EL SAUZAL, B.C. · MAYOREO</small></span></NavLink>
       <nav aria-label="Principal"><NavLink to="/" end>Catálogo</NavLink><NavLink to="/admin"><ShieldCheck size={17} /> Administración</NavLink></nav>
     </header>
     <Outlet context={{ productos, cargando, error, recargar: cargar, configurado }} />

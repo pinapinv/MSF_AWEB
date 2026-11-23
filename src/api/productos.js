@@ -10,8 +10,8 @@ export async function traerProductos(signal) {
 
 export async function guardarProducto(producto) {
   if (!supabase) throw new Error('Configura Supabase para guardar productos.')
-  const { id, nombre, descripcion, categoria, unidad, precio, stock_minimo, foto_url, promocion } = producto
-  const datos = { nombre: nombre.trim(), descripcion: descripcion.trim(), categoria: categoria.trim(), unidad, precio: Number(precio), stock_minimo: Number(stock_minimo), foto_url: foto_url.trim(), promocion }
+  const { id, nombre, descripcion, categoria, unidad, precio, stock_minimo, foto_url, promocion, cotizacion_pendiente = false } = producto
+  const datos = { nombre: nombre.trim(), descripcion: descripcion.trim(), categoria: categoria.trim(), unidad, precio: cotizacion_pendiente ? null : Number(precio), cotizacion_pendiente, stock_minimo: Number(stock_minimo), foto_url: foto_url.trim(), promocion }
   const { unidad: unidadNueva, ...cambios } = datos
   const consulta = id ? supabase.from('productos').update(cambios).eq('id', id) : supabase.from('productos').insert({ ...cambios, unidad: unidadNueva })
   const { error } = await consulta

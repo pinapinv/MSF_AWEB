@@ -73,3 +73,9 @@ En la prueba final apareció un permiso faltante para bloquear el producto. Acep
 Pedí commits descriptivos por avance, sin atribuir coautoría a la IA. Eso no significa ocultar su uso: lo explico en la [bitácora de IA](BITACORA_IA.md), incluyendo generación de código, diagnóstico y configuración asistida.
 
 **Consecuencia:** puedo relacionar las decisiones con el historial y distinguir lo implementado de lo pendiente. No presento los resúmenes de las últimas 100 ventas como reportes completos, ni doy por terminadas las cinco jornadas del plan.
+
+## 13. Trabajar como comercializadora al mayoreo
+
+Aclaré que el negocio comercializa al mayoreo y elegí manejar todos los productos por tonelada. Acepté convertir los productos por kg multiplicando el precio por 1,000 y dividiendo existencias y mínimos entre 1,000. Para el ostión elegí dejar peso y precio pendientes, sin inventar equivalencias desde piezas.
+
+**Consecuencia:** el catálogo, los formularios y las nuevas ventas usan toneladas. Los movimientos y ventas anteriores conservan su unidad original; una tabla administrativa guarda los valores previos a la conversión. No habilito ventas ni alertas de stock del ostión mientras su peso y precio estén pendientes. También elegí una presentación marina con azul profundo, acentos arena y fotografías de referencia, conservando el eslogan y usando el texto de presentación que proporcioné.

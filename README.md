@@ -1,6 +1,6 @@
 # Mariscos de San Felipe
 
-Aplicación de catálogo, inventario y registro de ventas para Mariscos de San Felipe, en El Sauzal, B.C. El nombre, ubicación, eslogan y contacto fueron proporcionados por la responsable. **Las existencias iniciales y los precios de ejemplo no representan datos comerciales verificados.** Las fotografías son de referencia y tienen sus créditos incluidos.
+Aplicación de catálogo, inventario y registro de ventas para la comercializadora de mayoreo Mariscos de San Felipe, en El Sauzal, B.C. La operación actual es por tonelada. El nombre, ubicación, eslogan y contacto fueron proporcionados por la responsable. **Las existencias iniciales y los precios de ejemplo no representan datos comerciales verificados.** Las fotografías son de referencia y tienen sus créditos incluidos.
 
 ## Entrega
 
@@ -47,13 +47,13 @@ Copiar `.env.example` a `.env.local` y completar los valores públicos según [l
 ## Incluido en este avance
 
 - Catálogo responsivo con categorías, búsqueda sin distinción de acentos, precio máximo, promociones y disponibilidad.
-- Ficha de producto con precio por kg/pieza e imagen; ilustración alternativa si no se proporciona foto.
+- Ficha de producto con precio por tonelada e imagen; cotización pendiente cuando faltan peso y precio.
 - Contacto telefónico y enlace a WhatsApp con el número del negocio proporcionado por su responsable.
 - Login y autorización mediante lista de administradores en Supabase.
 - Creación y edición de productos, precios, descripción, promoción, stock mínimo y foto mediante URL HTTPS.
 - Entradas y salidas por merma, historial de los últimos 100 movimientos y resumen de inventario.
 - Cambio de stock y registro de historial en una sola transacción, bloqueo por producto y protección contra reintentos duplicados.
-- Existencias negativas rechazadas; cantidades enteras para piezas y máximo tres decimales para kg.
+- Existencias negativas rechazadas; hasta seis decimales por tonelada para conservar la precisión de los registros previos.
 
 ## Pendiente
 

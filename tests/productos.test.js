@@ -5,7 +5,7 @@ import { productosDemo } from '../src/data/demo.js'
 
 test('búsqueda ignora acentos y combina categoría, precio, disponibilidad y promociones', () => {
   assert.equal(filtrarProductos(productosDemo, { busqueda: ' CAMARON ' })[0].nombre, 'Camarón mediano')
-  assert.deepEqual(filtrarProductos(productosDemo, { categoria: 'Moluscos', precioMax: '100', disponibles: true, promociones: true }).map((p) => p.nombre), ['Almeja'])
+  assert.deepEqual(filtrarProductos(productosDemo, { categoria: 'Moluscos', precioMax: '100000', disponibles: true, promociones: true }).map((p) => p.nombre), ['Almeja'])
   assert.equal(filtrarProductos(productosDemo, { precioMax: '0' }).length, 0)
   assert.equal(filtrarProductos(productosDemo, { busqueda: 'inexistente' }).length, 0)
 })

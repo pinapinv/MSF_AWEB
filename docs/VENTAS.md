@@ -1,5 +1,15 @@
 # Cómo concretar y registrar una venta
 
+## Operación por tonelada
+
+La comercializadora opera al mayoreo por tonelada (1 t = 1,000 kg). La conversión conserva el valor: precio por kg × 1,000; existencias y mínimo en kg ÷ 1,000. Los precios siguen siendo de ejemplo hasta ser confirmados por el negocio. Se admiten seis decimales de tonelada y los montos se redondean a centavos.
+
+El ostión queda **por cotizar**, con peso y precio pendientes. No se deduce un peso a partir de piezas ni se permite registrar movimientos o ventas mientras esté pendiente. Para habilitarlo: editar el producto, confirmar su precio por tonelada, desmarcar la casilla de pendientes, guardar y registrar el peso real como entrada. Los ceros internos mientras está pendiente no representan un conteo confirmado.
+
+La conversión guarda los valores anteriores en `conversiones_unidad`, consultable solo por administradores. Los movimientos anteriores conservan su unidad en una columna propia y las ventas históricas conservan cantidad, unidad, precio y monto. Para una instalación nueva, aplicar `supabase/sql/mayoreo_toneladas.sql` después de los scripts de ventas y Telegram; no volver a ejecutarlo sobre la misma instalación.
+
+## Flujo de venta
+
 1. El cliente abre un producto y pulsa **Consultar por WhatsApp**.
 2. El negocio acuerda cantidad, entrega y pago por ese canal. La página no cobra ni verifica pagos bancarios.
 3. Después de recibir el pago, el administrador entra en **Ventas**, selecciona el producto y la cantidad y añade una referencia opcional.

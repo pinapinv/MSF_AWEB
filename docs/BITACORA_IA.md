@@ -77,3 +77,7 @@ La asistencia incluyó verificaciones de compilación, lint, pruebas de interfaz
 Todavía debo sustituir precios y cantidades de prueba por datos confirmados y completar los reportes por periodo y producto más vendido. La carga de fotografías desde archivos y la actualización del catálogo en tiempo real también quedan pendientes. No considero terminado todo el plan original por haber publicado el sitio.
 
 Solicité esta bitácora y el diario de decisiones a la propia IA, en primera persona, basándose en el historial disponible. No incluí tokens, contraseñas ni claves secretas en estos documentos.
+
+## Ajuste posterior: comercialización al mayoreo
+
+Aclaré que la empresa es una comercializadora de mayoreo y pedí un diseño más marino y un nuevo texto de presentación. Confirmé que todos los productos deben manejarse por tonelada y que el ostión debe quedar pendiente de peso y precio. Delegué a la IA el rediseño, la conversión matemática de los productos por kg y la adaptación de inventario y ventas. Pedí conservar los registros anteriores y no inventar equivalencias entre piezas y peso. La implementación incluye pruebas de conservación del historial, cálculo de ventas y bloqueo de productos pendientes.

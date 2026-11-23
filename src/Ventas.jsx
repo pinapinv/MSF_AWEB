@@ -23,7 +23,7 @@ export default function Ventas({ productos, recargar }) {
   }, [])
   async function vender(event) {
     event.preventDefault()
-    if (!producto || !confirmado) return
+    if (!producto || producto.cotizacion_pendiente || !confirmado) return
     setOcupado(true); setError(''); setMensaje('')
     try {
       await registrarVenta({ productoId, cantidad, nota, solicitudId })
@@ -40,13 +40,13 @@ export default function Ventas({ productos, recargar }) {
       <h2>Registrar venta</h2><p className="muted">Registra aquí las ventas acordadas por WhatsApp o en el negocio, después de confirmar el pago. Cada registro corresponde a un producto.</p>
       {error && <p className="notice error" role="alert">{error}</p>}{mensaje && <p className="notice success" role="status">{mensaje}</p>}
       <fieldset disabled={ocupado}><div className="form-grid">
-        <label>Producto<select required value={productoId} onChange={(e) => setProductoId(e.target.value)}><option value="">Selecciona un producto</option>{productos.map((p) => <option key={p.id} value={p.id} disabled={Number(p.stock) <= 0}>{p.nombre}{Number(p.stock) <= 0 ? ' · Agotado' : ''}</option>)}</select></label>
-        <label>Cantidad{producto ? ` (${producto.unidad})` : ''}<input required type="number" min={producto?.unidad === 'pieza' ? '1' : '0.001'} step={producto?.unidad === 'pieza' ? '1' : '0.001'} max={producto?.stock || undefined} value={cantidad} onChange={(e) => setCantidad(e.target.value)} /></label>
+        <label>Producto<select required value={productoId} onChange={(e) => setProductoId(e.target.value)}><option value="">Selecciona un producto</option>{productos.map((p) => <option key={p.id} value={p.id} disabled={p.cotizacion_pendiente || Number(p.stock) <= 0}>{p.nombre}{p.cotizacion_pendiente ? ' · Peso y precio pendientes' : Number(p.stock) <= 0 ? ' · Agotado' : ''}</option>)}</select></label>
+        <label>Cantidad{producto ? ` (${producto.unidad})` : ''}<input required type="number" min={producto?.unidad === 'tonelada' ? '0.000001' : '0.001'} step={producto?.unidad === 'tonelada' ? '0.000001' : '0.001'} max={producto?.stock || undefined} value={cantidad} onChange={(e) => setCantidad(e.target.value)} /></label>
         <label className="full-width">Referencia o nota (opcional)<textarea maxLength={500} value={nota} onChange={(e) => setNota(e.target.value)} placeholder="Referencia de la venta o entrega" /></label>
       </div>
       {producto && <div className="sale-total"><span>Existencias: {producto.stock} {producto.unidad} · Precio: {moneda(producto.precio)} / {producto.unidad}</span><strong>Total: {moneda(Number.isFinite(total) ? total : 0)}</strong></div>}
       <label className="check"><input type="checkbox" required checked={confirmado} onChange={(e) => setConfirmado(e.target.checked)} /> Confirmo que la venta fue acordada y el pago recibido.</label>
-      <Button type="submit" disabled={ocupado || !producto || !confirmado}>{ocupado ? 'Registrando…' : 'Confirmar venta y descontar stock'}</Button>
+      <Button type="submit" disabled={ocupado || !producto || producto.cotizacion_pendiente || !confirmado}>{ocupado ? 'Registrando…' : 'Confirmar venta y descontar stock'}</Button>
       </fieldset>
     </form>
     <h2>Ventas registradas</h2><p className="muted">Últimas 100 ventas · Total mostrado: {moneda(ventas.reduce((s, v) => s + Number(v.monto), 0))}</p>
