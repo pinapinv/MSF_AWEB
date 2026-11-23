@@ -30,6 +30,6 @@ export default function Layout() {
       <nav aria-label="Principal"><NavLink to="/" end>Catálogo</NavLink><NavLink to="/admin"><ShieldCheck size={17} /> Administración</NavLink></nav>
     </header>
     <Outlet context={{ productos, cargando, error, recargar: cargar, configurado }} />
-    <footer><span>Mariscos de San Felipe · El Sauzal, B.C.</span><div className="footer-contact"><a href={`tel:+${telefono}`}>{telefonoVisible}</a><a href={`https://wa.me/${telefono}`} target="_blank" rel="noreferrer">Contactar por WhatsApp</a></div></footer>
+    <footer><span>Mariscos de San Felipe · El Sauzal, B.C.</span><div className="footer-contact"><a href={`tel:+${telefono}`}>{telefonoVisible}</a><a href="/creditos-fotos.html">Créditos de fotografías</a><a href={`https://wa.me/${telefono}`} target="_blank" rel="noreferrer">Contactar por WhatsApp</a></div></footer>
   </>
 }

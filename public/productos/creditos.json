@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "filete",
+    "archivo": "/productos/filete.jpg",
+    "titulo": "Pangasius meat.jpg",
+    "autor": "Brücke-Osteuropa",
+    "licencia": "CC0",
+    "licencia_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Pangasius_meat.jpg",
+    "cambios": "Redimensionada por Wikimedia; encuadre con CSS en el catálogo."
+  },
+  {
+    "slug": "camaron",
+    "archivo": "/productos/camaron.jpg",
+    "titulo": "Raw shrimp.jpg",
+    "autor": "Fumikas Sagisavas",
+    "licencia": "CC0",
+    "licencia_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Raw_shrimp.jpg",
+    "cambios": "Redimensionada por Wikimedia; encuadre con CSS en el catálogo."
+  },
+  {
+    "slug": "pulpo",
+    "archivo": "/productos/pulpo.jpg",
+    "titulo": "Octopus at the Tsukiji Fish Market.jpg",
+    "autor": "Paul Asman and Jill Lenoble",
+    "licencia": "CC BY 2.0",
+    "licencia_url": "https://creativecommons.org/licenses/by/2.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Octopus_at_the_Tsukiji_Fish_Market.jpg",
+    "cambios": "Redimensionada por Wikimedia; encuadre con CSS en el catálogo."
+  },
+  {
+    "slug": "ostion",
+    "archivo": "/productos/ostion.jpg",
+    "titulo": "Raw oysters.jpg",
+    "autor": "kallerna",
+    "licencia": "CC BY-SA 4.0",
+    "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Raw_oysters.jpg",
+    "cambios": "Redimensionada por Wikimedia; encuadre con CSS en el catálogo."
+  },
+  {
+    "slug": "almeja",
+    "archivo": "/productos/almeja.jpg",
+    "titulo": "Clams, Narragansett Bay - Boston, MA.jpg",
+    "autor": "Daderot",
+    "licencia": "CC0",
+    "licencia_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Clams,_Narragansett_Bay_-_Boston,_MA.jpg",
+    "cambios": "Redimensionada por Wikimedia; encuadre con CSS en el catálogo."
+  },
+  {
+    "slug": "pescado",
+    "archivo": "/productos/pescado.jpg",
+    "titulo": "Fish at the Market (Unsplash).jpg",
+    "autor": "Jakub Kapusnak foodiesfeed",
+    "licencia": "CC0",
+    "licencia_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Fish_at_the_Market_(Unsplash).jpg",
+    "cambios": "Redimensionada por Wikimedia; encuadre con CSS en el catálogo."
+  }
+]
